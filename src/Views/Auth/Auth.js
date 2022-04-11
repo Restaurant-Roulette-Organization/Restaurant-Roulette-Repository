@@ -39,6 +39,7 @@ export default function Auth(props) {
           password:
           <input type="password" value={password} onSubmit={(e) => setPassword(e.target.value)} />
         </label>
+        <input type="submit" />
       </form>
     </div>
   );
