@@ -21,6 +21,6 @@ export async function logout() {
 
 //----------------- like feature ----------------------
 
-export async function createFavorite(id) {
-  const resp = await client.from('Favorites').insert({ user_id: getUser().id, restraunt_id });
-}
+// export async function createFavorite(id) {
+//   const resp = await client.from('Favorites').insert({ user_id: getUser().id, restraunt_id });
+// }
