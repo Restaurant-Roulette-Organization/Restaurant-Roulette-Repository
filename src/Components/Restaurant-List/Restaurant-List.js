@@ -1,4 +1,4 @@
-export const RestaurantList = ({ name, rating, price }) => {
+export const RestaurantListItem = ({ name, rating, price }) => {
   return (
     <div>
       <p>{name}</p> 

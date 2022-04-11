@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchRestaurants } from '../../services/yelp';
-import { RestaurantList } from '../../Components/Restaurant-List/Restaurant-List';
+import { RestaurantListItem } from '../../Components/Restaurant-List/Restaurant-List';
 export default function Home() {
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,7 +47,7 @@ export default function Home() {
         <button onClick={() => setSelected(null)}>See All</button>
       </div>
       {loading && <div className='loader'>loader</div>}
-      {selected ? <p>{selected.name}</p> : restaurants.map((data) => <RestaurantList key={data.id} {...data} />)}
+      {selected ? <RestaurantListItem {...selected} /> : restaurants.map((data) => <RestaurantListItem key={data.id} {...data} />)}
     </div>
   );
 }
