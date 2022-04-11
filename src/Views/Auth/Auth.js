@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { signInUser, signUpUser } from '../../services/user';
 
 export default function Auth(props) {
   const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ export default function Auth(props) {
     if (!email || !password) return;
     try {
       const user =
-        type === 'signin' ? await signInUser(email, password) : await signupUser(email, password);
+        type === 'signin' ? await signInUser(email, password) : await signUpUser(email, password);
       props.setCurrentUser(user.email);
     } catch (e) {
       e.message ? setErrorMessage(e.message) : setErrorMessage('Unable to sign in. Try again');
