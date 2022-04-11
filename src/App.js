@@ -1,5 +1,5 @@
 import './App.css';
-import { useRestaurantContext } from './Context/FoodContext';
+import { useRestaurantContext } from './Context/RestaurantContext';
 
 function App() {
   const { restaurants } = useRestaurantContext();
