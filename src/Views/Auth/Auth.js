@@ -5,7 +5,7 @@ import { signInUser, signUpUser } from '../../services/user';
 export default function Auth(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [type, setType] = useState('signup');
+  const [type, setType] = useState('signin');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
@@ -33,11 +33,11 @@ export default function Auth(props) {
       <form className="auth-form" onSubmit={handleSubmit}>
         <label>
           email:
-          <input type="email" value={email} onSubmit={(e) => setEmail(e.target.value)} />
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <label>
           password:
-          <input type="password" value={password} onSubmit={(e) => setPassword(e.target.value)} />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
         <input type="submit" />
       </form>
