@@ -1,12 +1,24 @@
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import { fetchRestaurants } from '../../services/yelp';
 export default function Home() {
+  const [restaurants, setRestaurants] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
   const [isFiltering, setIsFiltering] = useState(false);
   const sampleData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'duck', 'goose', 'santa', 'andy'];
   const randomIndex = (array) => {
     return array[Math.floor(Math.random() * array.length)];
   };
+
+  useEffect (() => {
+    const fetchData = async () => {
+      const data = await fetchRestaurants();
+      setRestaurants(data.businesses);
+      setLoading(false);
+    };
+    fetchData();
+  }, []
+  );
   return (
     <div>
       <button onClick={() => setSelected(randomIndex(sampleData))}>Restaurant Roulette</button>
