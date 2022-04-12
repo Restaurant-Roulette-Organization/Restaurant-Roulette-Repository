@@ -1,12 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
 import { signInUser, signUpUser } from '../../services/user';
-
-export default function Auth(props) {
+import { useRestaurantContext } from '../../Context/RestaurantContext';
+import { useHistory } from 'react-router-dom';
+export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [type, setType] = useState('signin');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const { setCurrentUser } = useRestaurantContext();
+  
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +20,8 @@ export default function Auth(props) {
     try {
       const user =
         type === 'signin' ? await signInUser(email, password) : await signUpUser(email, password);
-      props.setCurrentUser(user.email);
+      setCurrentUser(user.email);
+      history.push('/');
     } catch (e) {
       e.message ? setErrorMessage(e.message) : setErrorMessage('Unable to sign in. Try again');
     }

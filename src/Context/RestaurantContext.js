@@ -1,13 +1,15 @@
 import { createContext, useContext, useState } from 'react';
+import { getUser } from '../services/user';
 
 const RestaurantContext = createContext();
 const RestaurantProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState(['applebees']);
   const [zipcode, setZipcode] = useState('');
   const [search, setSearch] = useState('');
+  const [currentUser, setCurrentUser] = useState(getUser());
   return (
     <RestaurantContext.Provider
-      value={{ restaurants, setRestaurants, zipcode, setZipcode, search, setSearch }}
+      value={{ restaurants, setRestaurants, zipcode, setZipcode, search, setSearch, currentUser, setCurrentUser }}
     >
       {children}
     </RestaurantContext.Provider>
