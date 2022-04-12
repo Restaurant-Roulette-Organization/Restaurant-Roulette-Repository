@@ -1,5 +1,4 @@
 import { createContext, useEffect, useContext, useState } from 'react';
-import { getFavorites } from '../services/favorites';
 import { fetchRestaurants } from '../services/yelp';
 const RestaurantContext = createContext();
 const RestaurantProvider = ({ children }) => {
@@ -12,7 +11,6 @@ const RestaurantProvider = ({ children }) => {
     try {
       const fetchData = async () => {
         const data = await fetchRestaurants();
-
         setRestaurants(data);
         setLoading(false);
       };

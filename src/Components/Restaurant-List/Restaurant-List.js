@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './restaurantlist.css';
 import { getUserId } from '../../services/user';
 import { createFavorite, deleteFavorite } from '../../services/favorites';
