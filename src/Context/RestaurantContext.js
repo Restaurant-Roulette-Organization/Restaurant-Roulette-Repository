@@ -11,7 +11,7 @@ const RestaurantProvider = ({ children }) => {
     try {
       const fetchData = async () => {
         const data = await fetchRestaurants();
-        setRestaurants(data.businesses);
+        setRestaurants(data);
         setLoading(false);
       };
       fetchData();

@@ -3,6 +3,10 @@ import { client, checkError } from './client';
 export function getUser() {
   return client.auth.session() && client.auth.session().user.email;
 }
+export function getUserId() {
+  return client.auth.session() && client.auth.session().user.id;
+}
+
 export async function signUpUser(email, password) {
   const { user } = await client.auth.signUp({ email, password });
 
@@ -24,7 +28,6 @@ export async function logout() {
 // export async function createFavorite(id) {
 //   const resp = await client.from('Favorites').insert({ user_id: getUser().id, restraunt_id });
 // }
-
 
 //------ notes vvv ----------
 // export async function createRating(id) {
