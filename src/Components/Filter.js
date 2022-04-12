@@ -5,17 +5,9 @@ import { fetchRestaurants } from '../services/yelp';
 export default function Filter() {
   const { zipcode, setZipcode, search, setSearch, setRestaurants } = useRestaurantContext();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchRestaurants();
-      setRestaurants(data);
-    };
-    fetchData();
-  }, [setRestaurants]);
-
   const handleChange = async () => {
     const searchData = await fetchRestaurants(zipcode, search);
-    setRestaurants(searchData);
+    setRestaurants(searchData.businesses);
   };
 
   // finish restaurants

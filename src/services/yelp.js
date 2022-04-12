@@ -7,5 +7,6 @@ export async function fetchRestaurants(zip = '97034', search = '') {
   });
 
   const data = await resp.json();
+  console.log(data);
   return data;
 }
