@@ -12,7 +12,6 @@ export default function Home() {
     const randomNum = Math.floor(Math.random() * array.length);
     return array[randomNum];
   };
-  console.log(restaurants);
   //   if (loading) return <div>loading</div>;
   return (
     <div>
