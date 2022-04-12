@@ -3,8 +3,12 @@ import { createContext, useContext, useState } from 'react';
 const RestaurantContext = createContext();
 const RestaurantProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState(['applebees']);
+  const [zipcode, setZipcode] = useState('');
+  const [search, setSearch] = useState('');
   return (
-    <RestaurantContext.Provider value={{ restaurants, setRestaurants }}>
+    <RestaurantContext.Provider
+      value={{ restaurants, setRestaurants, zipcode, setZipcode, search, setSearch }}
+    >
       {children}
     </RestaurantContext.Provider>
   );
