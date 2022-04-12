@@ -3,7 +3,7 @@ import { useRestaurantContext } from '../Context/RestaurantContext';
 import { fetchRestaurants } from '../services/yelp';
 
 export default function Filter() {
-  const { zipcode, setZipcode, search, setSearch, setRestaurants } = useRestaurantContext();
+  const { zipcode, setZipcode, search, setSearch, setRestaurants, error, setError, setLoading } = useRestaurantContext();
   
   
   const [debouncedQuery, setDebouncedQuery] = useState('');
@@ -19,14 +19,25 @@ export default function Filter() {
   
 
   const handleChange = async () => {
-    const searchData = await fetchRestaurants(zipcode, search);
-    setRestaurants(searchData.businesses);
+    try {
+      if (zipcode === '') {
+        setError('Please enter your zipcode.');
+      }
+      else {
+        setError('');
+        const searchData = await fetchRestaurants(zipcode, search);
+        setLoading(false);
+        return setRestaurants(searchData.businesses);}
+    } catch (e) {
+      setError(e.message);
+    }
   };
 
   // finish restaurants
   return (
     <div className="filter">
       <div className="filter-control">
+        {error && <p>{error}</p>}
         <label>zipcode:</label>
         <input type="text" placeholder={zipcode} onChange={(e) => setDebouncedZip(e.target.value)} />
       </div>
