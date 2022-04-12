@@ -2,7 +2,7 @@ import { createContext, useEffect, useContext, useState } from 'react';
 import { fetchRestaurants } from '../services/yelp';
 const RestaurantContext = createContext();
 const RestaurantProvider = ({ children }) => {
-  const [restaurants, setRestaurants] = useState(['applebees']);
+  const [restaurants, setRestaurants] = useState([]);
   const [zipcode, setZipcode] = useState('');
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
