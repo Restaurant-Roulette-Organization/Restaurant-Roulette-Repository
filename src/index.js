@@ -3,10 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RestaurantProvider } from './Context/RestaurantContext';
+import { UserProvider } from './Context/UserContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <UserProvider>
+      <RestaurantProvider>
+        <App />
+      </RestaurantProvider>
+    </UserProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
