@@ -7,6 +7,7 @@ import { useUserContext } from './Context/UserContext';
 import Home from './Views/Home/Home';
 import Profile from './Views/Profile/Profile';
 import NavHeader from './Components/NavHeader/NavHeader';
+import RestaurantDetail from './Views/RestaurantDetail/RestaurantDetail';
 
 function App() {
   const { currentUser } = useUserContext();
@@ -17,6 +18,9 @@ function App() {
       <div className="App">
         <Route exact path={'/'}>
           <Home />
+        </Route>
+        <Route exact path={'/:alias'}>
+          <RestaurantDetail />
         </Route>
         <Route path={'/auth'}>
           <Auth />
