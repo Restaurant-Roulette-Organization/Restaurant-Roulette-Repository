@@ -1,13 +1,38 @@
-import { createContext, useContext, useState } from 'react';
-
+import { createContext, useEffect, useContext, useState } from 'react';
+import { fetchRestaurants } from '../services/yelp';
 const RestaurantContext = createContext();
 const RestaurantProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState(['applebees']);
   const [zipcode, setZipcode] = useState('');
   const [search, setSearch] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        const data = await fetchRestaurants();
+        setRestaurants(data.businesses);
+        setLoading(false);
+      };
+      fetchData();
+    } catch (e) {
+      setError(e.message);
+    }
+  }, []);
   return (
     <RestaurantContext.Provider
-      value={{ restaurants, setRestaurants, zipcode, setZipcode, search, setSearch }}
+      value={{
+        restaurants,
+        setRestaurants,
+        zipcode,
+        setZipcode,
+        search,
+        setSearch,
+        loading,
+        setLoading,
+        error,
+        setError,
+      }}
     >
       {children}
     </RestaurantContext.Provider>
