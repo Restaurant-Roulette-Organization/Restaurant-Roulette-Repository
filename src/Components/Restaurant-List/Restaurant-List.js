@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import './restaurantlist.css';
-import { getUser } from '../../services/user';
+import { getUserId } from '../../services/user';
+import { createFavorite, deleteFavorite } from '../../services/favorites';
 
 export const RestaurantListItem = ({ name, rating, price, image_url, alias }) => {
   const [checked, setChecked] = useState(false);
-  const user = getUser();
-  console.log(user);
+
+  const clickHandler = async () => {
+    const user = getUserId();
+    !checked ? await createFavorite(alias, user) : await deleteFavorite(alias, user);
+    setChecked(!checked);
+  };
   return (
     <div className="card">
       <div className="restaurant-image" style={{ backgroundImage: `url(${image_url})` }}></div>
@@ -17,7 +22,7 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias }) =>
           <p className="stars">{Array(Math.floor(rating)).fill('⭐️')}</p>
         </div>
         <div className="right">
-          <div className="favorite" onClick={() => setChecked(!checked)}>
+          <div className="favorite" onClick={() => clickHandler()}>
             {checked ? '❤️' : '🤍'}
           </div>
         </div>
