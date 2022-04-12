@@ -11,18 +11,9 @@ const RestaurantProvider = ({ children }) => {
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const { businesses } = await fetchRestaurants();
-        const favs = await getFavorites();
-        const aliases = favs.map(({ restaurant_alias }) => restaurant_alias);
+        const data = await fetchRestaurants();
 
-        const mutated = businesses.map((business) => {
-          for (const alias of aliases) {
-            if (alias === business.alias) return { ...business, checked: true };
-          }
-          return business;
-        });
-
-        setRestaurants(mutated);
+        setRestaurants(data);
         setLoading(false);
       };
       fetchData();
