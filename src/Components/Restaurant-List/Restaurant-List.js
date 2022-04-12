@@ -2,14 +2,16 @@ import { useState } from 'react';
 import './restaurantlist.css';
 import { getUserId } from '../../services/user';
 import { createFavorite, deleteFavorite } from '../../services/favorites';
+import { useRestaurantContext } from '../../Context/RestaurantContext';
 
-export const RestaurantListItem = ({ name, rating, price, image_url, alias }) => {
-  const [checked, setChecked] = useState(false);
+export const RestaurantListItem = ({ name, rating, price, image_url, alias, checked }) => {
+  const { restaurants, setRestaurants } = useRestaurantContext();
+  const findAndReplace = () => {};
 
   const clickHandler = async () => {
     const user = getUserId();
     !checked ? await createFavorite(alias, user) : await deleteFavorite(alias, user);
-    setChecked(!checked);
+    console.log(restaurants.find((restaurant) => restaurant.alias === alias));
   };
   return (
     <div className="card">

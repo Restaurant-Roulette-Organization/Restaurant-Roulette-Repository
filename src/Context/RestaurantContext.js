@@ -1,4 +1,5 @@
 import { createContext, useEffect, useContext, useState } from 'react';
+import { getFavorites } from '../services/favorites';
 import { fetchRestaurants } from '../services/yelp';
 const RestaurantContext = createContext();
 const RestaurantProvider = ({ children }) => {
@@ -10,8 +11,18 @@ const RestaurantProvider = ({ children }) => {
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const data = await fetchRestaurants();
-        setRestaurants(data.businesses);
+        const { businesses } = await fetchRestaurants();
+        const favs = await getFavorites();
+        const aliases = favs.map(({ restaurant_alias }) => restaurant_alias);
+
+        const mutated = businesses.map((business) => {
+          for (const alias of aliases) {
+            if (alias === business.alias) return { ...business, checked: true };
+          }
+          return business;
+        });
+
+        setRestaurants(mutated);
         setLoading(false);
       };
       fetchData();
