@@ -3,12 +3,12 @@ import { Route } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Auth from './Views/Auth/Auth';
-import { useRestaurantContext } from './Context/RestaurantContext';
+import { useUserContext } from './Context/UserContext';
 import Home from './Views/Home/Home';
 import Profile from './Views/Profile/Profile';
 
 function App() {
-  const { currentUser } = useRestaurantContext();
+  const { currentUser } = useUserContext();
 
   return (
     <div className="App">

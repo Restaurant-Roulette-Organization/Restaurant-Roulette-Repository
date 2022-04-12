@@ -6,10 +6,9 @@ const RestaurantProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState(['applebees']);
   const [zipcode, setZipcode] = useState('');
   const [search, setSearch] = useState('');
-  const [currentUser, setCurrentUser] = useState(getUser());
   return (
     <RestaurantContext.Provider
-      value={{ restaurants, setRestaurants, zipcode, setZipcode, search, setSearch, currentUser, setCurrentUser }}
+      value={{ restaurants, setRestaurants, zipcode, setZipcode, search, setSearch }}
     >
       {children}
     </RestaurantContext.Provider>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { signInUser, signUpUser } from '../../services/user';
-import { useRestaurantContext } from '../../Context/RestaurantContext';
+import { useUserContext } from '../../Context/UserContext';
 import { useHistory } from 'react-router-dom';
 export default function Auth() {
   const [email, setEmail] = useState('');
@@ -9,7 +9,7 @@ export default function Auth() {
   const [type, setType] = useState('signin');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { setCurrentUser } = useRestaurantContext();
+  const { setCurrentUser } = useUserContext();
   
   const history = useHistory();
 
