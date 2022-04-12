@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchRestaurants } from '../../services/yelp';
 import { RestaurantListItem } from '../../Components/Restaurant-List/Restaurant-List';
+import Filter from '../../Components/Filter';
 export default function Home() {
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ export default function Home() {
     return array[randomNum];
   };
 
-  useEffect (() => {
+  useEffect(() => {
     try {
       const fetchData = async () => {
         const data = await fetchRestaurants();
@@ -25,17 +26,15 @@ export default function Home() {
     } catch (e) {
       setError(e.message);
     }
-  }, []
-  );
-
-  
-
+  }, []);
+  //   if (loading) return <div>loading</div>;
   return (
     <div>
       <button onClick={() => setSelected(randomIndex(restaurants))}>Restaurant Roulette</button>
       <p onClick={() => setIsFiltering(!isFiltering)}>filter</p>
       {isFiltering && (
         <div>
+          <Filter />
           <select name="" id=""></select>
           <select name="" id=""></select>
           <select name="" id=""></select>
@@ -46,8 +45,12 @@ export default function Home() {
         <p>Results: {restaurants.length}</p>
         <button onClick={() => setSelected(null)}>See All</button>
       </div>
-      {loading && <div className='loader'>loader</div>}
-      {selected ? <RestaurantListItem {...selected} /> : restaurants.map((data) => <RestaurantListItem key={data.id} {...data} />)}
+      {loading && <div className="loader">loader</div>}
+      {selected ? (
+        <RestaurantListItem {...selected} />
+      ) : (
+        restaurants.map((data) => <RestaurantListItem key={data.id} {...data} />)
+      )}
     </div>
   );
 }
