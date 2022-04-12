@@ -1,7 +1,7 @@
 export const RestaurantListItem = ({ name, rating, price }) => {
   return (
     <div>
-      <p>{name}</p> 
+      <h3>{name}</h3> 
       <p>{Array(Math.floor(rating)).fill('⭐️')}</p>
       <p>{price}</p>
     </div>
