@@ -12,7 +12,6 @@ export default function Home() {
     const randomNum = Math.floor(Math.random() * array.length);
     return array[randomNum];
   };
-  console.log(restaurants);
   //   if (loading) return <div>loading</div>;
   return (
     <div>
@@ -29,7 +28,7 @@ export default function Home() {
       <div className="restaurants-container">
         {error && <p>{error}</p>}
         <p>Results: {restaurants.length}</p>
-        <button onClick={() => setSelected(null)}>See All</button>
+        {selected && <button onClick={() => setSelected(null)}>See All</button>}
       </div>
       {loading && <div className="loader">loader</div>}
       {selected ? (
