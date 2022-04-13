@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { signInUser, signUpUser } from '../../services/user';
 import { useUserContext } from '../../Context/UserContext';
 import { useHistory } from 'react-router-dom';
+import { useRestaurantContext } from '../../Context/RestaurantContext';
+import { fetchRestaurants } from '../../services/yelp';
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,7 +12,8 @@ export default function Auth() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const { setCurrentUser } = useUserContext();
-  
+  const { setRestaurants } = useRestaurantContext();
+
   const history = useHistory();
 
   const handleSubmit = async (e) => {
@@ -21,6 +24,7 @@ export default function Auth() {
       const user =
         type === 'signin' ? await signInUser(email, password) : await signUpUser(email, password);
       setCurrentUser(user.email);
+      setRestaurants(await fetchRestaurants());
       history.push('/');
     } catch (e) {
       e.message ? setErrorMessage(e.message) : setErrorMessage('Unable to sign in. Try again');
