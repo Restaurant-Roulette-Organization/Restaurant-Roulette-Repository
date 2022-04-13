@@ -10,6 +10,7 @@ export default function Filter() {
 
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [debouncedZip, setDebouncedZip] = useState('');
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearch(debouncedQuery);
@@ -54,6 +55,14 @@ export default function Filter() {
         />
       </div>
       <button onClick={handleChange}>search</button>
+      <div className="dropdown">
+        {/* <select value={price} onChange={(e) => setPrice(e.target.value)}>
+          <option value="1">$</option>
+          <option value="2">$$</option>
+          <option value="3">$$$</option>
+          <option value="4">$$$$</option>
+        </select> */}
+      </div>
     </div>
   );
 }

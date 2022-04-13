@@ -24,9 +24,6 @@ export default function Home() {
       {isFiltering && (
         <div>
           <Filter />
-          <select name="" id=""></select>
-          <select name="" id=""></select>
-          <select name="" id=""></select>
         </div>
       )}
       <div className="restaurants-container">
