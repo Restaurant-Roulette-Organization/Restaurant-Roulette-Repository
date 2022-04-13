@@ -1,5 +1,6 @@
 import { createContext, useEffect, useContext, useState } from 'react';
 import { fetchRestaurants } from '../services/yelp';
+import { useUserContext } from './UserContext';
 const RestaurantContext = createContext();
 const RestaurantProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState([]);
@@ -7,10 +8,12 @@ const RestaurantProvider = ({ children }) => {
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const { lat, long } = useUserContext();
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const data = await fetchRestaurants();
+        console.log('running');
+        const data = await fetchRestaurants('', lat, long);
         setRestaurants(data);
         setLoading(false);
       };
@@ -18,7 +21,7 @@ const RestaurantProvider = ({ children }) => {
     } catch (e) {
       setError(e.message);
     }
-  }, []);
+  }, [lat, long]);
   return (
     <RestaurantContext.Provider
       value={{

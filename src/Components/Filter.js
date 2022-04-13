@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useRestaurantContext } from '../Context/RestaurantContext';
+import { useUserContext } from '../Context/UserContext';
 import { fetchRestaurants } from '../services/yelp';
 
 export default function Filter() {
-  const { zipcode, setZipcode, search, setSearch, setRestaurants, error, setError, setLoading } = useRestaurantContext();
-  
-  
+  const { zipcode, setZipcode, search, setSearch, setRestaurants, error, setError, setLoading } =
+    useRestaurantContext();
+  const { lat, long } = useUserContext();
+
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [debouncedZip, setDebouncedZip] = useState('');
   useEffect(() => {
-    const timer = setTimeout(() =>{ 
+    const timer = setTimeout(() => {
       setSearch(debouncedQuery);
-      setZipcode(debouncedZip)
-      ;}, 900);
+      setZipcode(debouncedZip);
+    }, 900);
     return () => clearTimeout(timer);
   }, [debouncedQuery, setSearch, debouncedZip, setZipcode]);
-
-  
 
   const handleChange = async () => {
     try {
       if (zipcode === '') {
         setError('Please enter your zipcode.');
-      }
-      else {
+      } else {
         setError('');
-        const searchData = await fetchRestaurants(zipcode, search);
+        const searchData = await fetchRestaurants(search, lat, long);
         setLoading(false);
-        return setRestaurants(searchData.businesses);}
+        return setRestaurants(searchData.businesses);
+      }
     } catch (e) {
       setError(e.message);
     }
@@ -39,11 +39,19 @@ export default function Filter() {
       <div className="filter-control">
         {error && <p>{error}</p>}
         <label>zipcode:</label>
-        <input type="text" placeholder={zipcode} onChange={(e) => setDebouncedZip(e.target.value)} />
+        <input
+          type="text"
+          placeholder={zipcode}
+          onChange={(e) => setDebouncedZip(e.target.value)}
+        />
       </div>
       <div className="filter-control">
         <label> query:</label>
-        <input type="text" placeholder={search} onChange={(e) => setDebouncedQuery(e.target.value)} />
+        <input
+          type="text"
+          placeholder={search}
+          onChange={(e) => setDebouncedQuery(e.target.value)}
+        />
       </div>
       <button onClick={handleChange}>search</button>
     </div>
