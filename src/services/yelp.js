@@ -13,6 +13,7 @@ export async function fetchRestaurants(search = '', lat = '', long = '') {
   console.log('resp', resp);
 
   const { businesses } = await resp.json();
+  console.log(businesses);
   const favorites = await getFavorites();
   const mutated = businesses.map((business) => {
     for (const favorite of favorites) {

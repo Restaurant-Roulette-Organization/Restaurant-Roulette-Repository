@@ -3,15 +3,19 @@ import { getUserId } from '../../services/user';
 import { createFavorite, deleteFavorite } from '../../services/favorites';
 import { useRestaurantContext } from '../../Context/RestaurantContext';
 import { fetchRestaurants } from '../../services/yelp';
+import { useUserContext } from '../../Context/UserContext';
 
 export const RestaurantListItem = ({ name, rating, price, image_url, alias, checked }) => {
   const { setRestaurants } = useRestaurantContext();
+  // const { lat, long } = useUserContext();
 
   const clickHandler = async () => {
     const user = getUserId();
+    setRestaurants((prev) =>
+      prev.map((item) => (item.alias === alias ? { ...item, checked: !item.checked } : item))
+    );
     !checked ? await createFavorite(alias, user) : await deleteFavorite(alias, user);
-    const data = await fetchRestaurants();
-    setRestaurants(data);
+    // const data = await fetchRestaurants('', lat, long);
   };
   return (
     <div className="card">

@@ -6,6 +6,7 @@ const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(getUser());
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
+
   return (
     <UserContext.Provider value={{ currentUser, setCurrentUser, long, setLong, lat, setLat }}>
       {children}
