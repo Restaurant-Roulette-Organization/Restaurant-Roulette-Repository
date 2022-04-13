@@ -7,7 +7,7 @@ import { useUserContext } from '../../Context/UserContext';
 
 export const RestaurantListItem = ({ name, rating, price, image_url, alias, checked }) => {
   const { setRestaurants } = useRestaurantContext();
-  // const { lat, long } = useUserContext();
+  const { currentUser } = useUserContext();
 
   const clickHandler = async () => {
     const user = getUserId();
@@ -28,9 +28,9 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias, chec
           <p className="stars">{Array(Math.floor(rating)).fill('⭐️')}</p>
         </div>
         <div className="right">
-          <div className="favorite" onClick={() => clickHandler()}>
-            {checked ? '❤️' : '🤍'}
-          </div>
+          { currentUser && <div className="favorite" onClick={() => clickHandler()}>
+            { checked ? '❤️' : '🤍'}
+          </div>}
         </div>
       </div>
     </div>
