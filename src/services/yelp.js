@@ -19,7 +19,7 @@ export async function fetchRestaurants(search = '', lat = '', long = '') {
     for (const favorite of favorites) {
       if (favorite.restaurant_alias === business.alias) return { ...business, checked: true };
     }
-    return business;
+    return { ...business, checked: false };
   });
   return mutated;
 }
