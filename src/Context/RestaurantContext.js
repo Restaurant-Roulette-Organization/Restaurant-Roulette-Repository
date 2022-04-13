@@ -7,6 +7,7 @@ const RestaurantProvider = ({ children }) => {
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [price, setPrice] = useState('');
   useEffect(() => {
     try {
       const fetchData = async () => {
@@ -32,6 +33,8 @@ const RestaurantProvider = ({ children }) => {
         setLoading,
         error,
         setError,
+        price,
+        setPrice,
       }}
     >
       {children}

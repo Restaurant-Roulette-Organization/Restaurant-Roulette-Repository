@@ -1,9 +1,10 @@
 import { getFavorites } from './favorites';
 
-export async function fetchRestaurants(zip = '97034', search = '') {
+export async function fetchRestaurants(zip = '97034', search = '', price = '1,2,3,4') {
   const params = new URLSearchParams();
   params.set('zip', zip);
   params.set('search', search);
+  params.set('price', price);
   const resp = await fetch(`/.netlify/functions/fetch-yelp?${params.toString()}`, {
     headers: { Accept: 'application/json' },
   });
