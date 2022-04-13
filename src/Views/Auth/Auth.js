@@ -11,7 +11,7 @@ export default function Auth() {
   const [type, setType] = useState('signin');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { setCurrentUser } = useUserContext();
+  const { setCurrentUser, lat, long } = useUserContext();
   const { setRestaurants } = useRestaurantContext();
 
   const history = useHistory();
@@ -24,7 +24,7 @@ export default function Auth() {
       const user =
         type === 'signin' ? await signInUser(email, password) : await signUpUser(email, password);
       setCurrentUser(user.email);
-      setRestaurants(await fetchRestaurants());
+      setRestaurants(await fetchRestaurants('', lat, long));
       history.push('/');
     } catch (e) {
       e.message ? setErrorMessage(e.message) : setErrorMessage('Unable to sign in. Try again');

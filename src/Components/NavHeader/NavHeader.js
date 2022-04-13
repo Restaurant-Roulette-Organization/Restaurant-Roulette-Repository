@@ -5,13 +5,13 @@ import { logout } from '../../services/user';
 import { fetchRestaurants } from '../../services/yelp';
 
 export default function NavHeader() {
-  const { currentUser, setCurrentUser } = useUserContext();
+  const { currentUser, setCurrentUser, lat, long } = useUserContext();
   const { setRestaurants } = useRestaurantContext();
 
   const handleLogout = async () => {
     await logout();
     setCurrentUser(null);
-    const newRestaurants = await fetchRestaurants();
+    const newRestaurants = await fetchRestaurants('', lat, long);
     setRestaurants(newRestaurants);
   };
 
