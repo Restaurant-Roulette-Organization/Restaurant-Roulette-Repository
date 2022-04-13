@@ -9,11 +9,10 @@ export async function fetchRestaurants(zip = '97034', search = '') {
   });
 
   const { businesses } = await resp.json();
-  const favs = await getFavorites();
-  const aliases = favs.map(({ restaurant_alias }) => restaurant_alias);
+  const favorites = await getFavorites();
   const mutated = businesses.map((business) => {
-    for (const alias of aliases) {
-      if (alias === business.alias) return { ...business, checked: true };
+    for (const favorite of favorites) {
+      if (favorite.restaurant_alias === business.alias) return { ...business, checked: true };
     }
     return business;
   });
