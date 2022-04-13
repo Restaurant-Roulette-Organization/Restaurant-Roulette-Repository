@@ -40,7 +40,7 @@ export default function Filter() {
     }
   };
 
-  // finish restaurants
+  
   return (
     <div className="filter">
       <div className="filter-control">

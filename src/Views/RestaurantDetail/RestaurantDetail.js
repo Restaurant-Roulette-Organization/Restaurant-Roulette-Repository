@@ -4,6 +4,7 @@ import './RestaurantDetail.css';
 import { useRestaurantContext } from '../../Context/RestaurantContext';
 import { getUserId } from '../../services/user';
 import { createFavorite, deleteFavorite } from '../../services/favorites';
+import Notes from '../../Components/Notes/Notes';
 
 
 
@@ -49,7 +50,7 @@ export default function RestaurantDetail() {
       <div className="favorite" onClick={() => clickHandler()}>
         {restaurant.checked ? '❤️' : '🤍'}
       </div>
-      {/* <div>{notes}</div> */}
+      <Notes />
     </div>
   );
 }
