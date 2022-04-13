@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { RestaurantListItem } from '../../Components/Restaurant-List/Restaurant-List';
 import Filter from '../../Components/Filter';
 import { useRestaurantContext } from '../../Context/RestaurantContext';
+// import Dropdown from '../../Components/Dropdown/Dropdown';
 export default function Home() {
   const { restaurants, error, loading } = useRestaurantContext();
   const [selected, setSelected] = useState(null);
@@ -20,9 +21,6 @@ export default function Home() {
       {isFiltering && (
         <div>
           <Filter />
-          <select name="" id=""></select>
-          <select name="" id=""></select>
-          <select name="" id=""></select>
         </div>
       )}
       <div className="restaurants-container">
