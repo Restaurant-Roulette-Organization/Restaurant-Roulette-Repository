@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRestaurantContext } from '../Context/RestaurantContext';
 import { useUserContext } from '../Context/UserContext';
-import { fetchRestaurants } from '../services/yelp';
+import { fetchRestaurantZip, fetchRestaurants } from '../services/yelp';
 
 export default function Filter() {
   const { zipcode, setZipcode, search, setSearch, setRestaurants, error, setError, setLoading } =
@@ -22,12 +22,18 @@ export default function Filter() {
   const handleChange = async () => {
     try {
       if (zipcode === '') {
-        setError('Please enter your zipcode.');
+        if (lat && long) {
+          const searchData = await fetchRestaurants(search, lat, long);
+          setLoading(false);
+          return setRestaurants(searchData);
+        } else {
+          setError('Please enter your zipcode.');
+        }
       } else {
         setError('');
-        const searchData = await fetchRestaurants(search, lat, long);
+        const searchData = await fetchRestaurantZip(zipcode, search);
         setLoading(false);
-        return setRestaurants(searchData.businesses);
+        return setRestaurants(searchData);
       }
     } catch (e) {
       setError(e.message);
