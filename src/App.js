@@ -8,6 +8,7 @@ import Home from './Views/Home/Home';
 import Profile from './Views/Profile/Profile';
 import NavHeader from './Components/NavHeader/NavHeader';
 import RestaurantDetail from './Views/RestaurantDetail/RestaurantDetail';
+import AboutMe from './AboutMe/AboutMe';
 
 function App() {
   const { currentUser } = useUserContext();
@@ -26,6 +27,9 @@ function App() {
           <Auth />
         </Route>
         <Route path={'/profile'}>{currentUser ? <Profile /> : <Redirect to={'/auth'} />}</Route>
+        <Route exact path={'/aboutme'}>
+          <AboutMe />
+        </Route>
       </div>
     </BrowserRouter>
   );
