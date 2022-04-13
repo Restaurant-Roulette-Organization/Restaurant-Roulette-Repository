@@ -21,14 +21,10 @@ export default function Filter() {
 
   const handleChange = async () => {
     try {
-      if (zipcode === '') {
-        setError('Please enter your zipcode.');
-      } else {
-        setError('');
-        const searchData = await fetchRestaurants(search, lat, long);
-        setLoading(false);
-        return setRestaurants(searchData.businesses);
-      }
+      setError('');
+      const searchData = await fetchRestaurants(search, lat, long);
+      setLoading(false);
+      return setRestaurants(searchData.businesses);
     } catch (e) {
       setError(e.message);
     }
@@ -39,12 +35,12 @@ export default function Filter() {
     <div className="filter">
       <div className="filter-control">
         {error && <p>{error}</p>}
-        <label>zipcode:</label>
+        {/* <label>zipcode:</label>
         <input
           type="text"
           placeholder={zipcode}
           onChange={(e) => setDebouncedZip(e.target.value)}
-        />
+        /> */}
       </div>
       <div className="filter-control">
         <label> query:</label>
