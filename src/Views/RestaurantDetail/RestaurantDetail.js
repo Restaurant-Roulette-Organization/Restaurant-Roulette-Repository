@@ -2,17 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function RestaurantDetail() {
-  const RestaurantDetail = {
-    name,
-    image_url,
-    rating,
-    price,
-    url,
-    location,
-    phoneNumber,
-    checked,
-    notes,
-  };
+
 
   return (
     <div>
