@@ -1,5 +1,5 @@
 import { createContext, useEffect, useContext, useState, useCallback } from 'react';
-import { fetchRestaurants } from '../services/yelp';
+import { fetchRestaurants, fetchRestaurantZip } from '../services/yelp';
 import { useUserContext } from './UserContext';
 const RestaurantContext = createContext();
 const RestaurantProvider = ({ children }) => {
@@ -22,21 +22,26 @@ const RestaurantProvider = ({ children }) => {
   );
   useEffect(() => {
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(success);
+      return navigator.geolocation.getCurrentPosition(success);
+    } 
+  }, [success]);
+
+  useEffect(() => {
+    if (lat && long) {
+      try {
+        const fetchData = async () => {
+          if (!lat || !long) return;
+          const data = await fetchRestaurants('', lat, long);
+          setRestaurants(data);
+          setLoading(false);
+        };
+        fetchData();
+      } catch (e) {
+        setError(e.message);
+      } 
     }
-    try {
-      const fetchData = async () => {
-        console.log('running');
-        if (!lat || !long) return;
-        const data = await fetchRestaurants('', lat, long);
-        setRestaurants(data);
-        setLoading(false);
-      };
-      fetchData();
-    } catch (e) {
-      setError(e.message);
-    }
-  }, [lat, long, success]);
+
+  }, [lat, long]);
   return (
     <RestaurantContext.Provider
       value={{
