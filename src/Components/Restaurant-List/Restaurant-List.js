@@ -5,6 +5,7 @@ import { useRestaurantContext } from '../../Context/RestaurantContext';
 import { fetchRestaurants } from '../../services/yelp';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../../Context/UserContext';
+import Notes from '../Notes/Notes';
 
 export const RestaurantListItem = ({ name, rating, price, image_url, alias, checked }) => {
   const { setRestaurants } = useRestaurantContext();
@@ -35,6 +36,7 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias, chec
           </div>}
         </div>
       </div>
+      <Notes />
     </div>
   );
 };
