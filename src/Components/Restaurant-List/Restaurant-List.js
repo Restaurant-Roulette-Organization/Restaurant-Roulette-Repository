@@ -15,23 +15,22 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias, chec
     setRestaurants(data);
   };
   return (
-    <Link to={`/restaurants/${alias}`}>
-      <div className="card">
+    <div className="card">
+      <Link to={`/restaurants/${alias}`}>
         <div className="restaurant-image" style={{ backgroundImage: `url(${image_url})` }}></div>
-
-        <div className="bottom">
-          <div className="left">
-            <p className="price">{price}</p>
-            <h3 className="title">{name}</h3>
-            <p className="stars">{Array(Math.floor(rating)).fill('⭐️')}</p>
-          </div>
-          <div className="right">
-            <div className="favorite" onClick={() => clickHandler()}>
-              {checked ? '❤️' : '🤍'}
-            </div>
+        <h3 className="title">{name}</h3>
+      </Link>
+      <div className="bottom">
+        <div className="left">
+          <p className="price">{price}</p>
+          <p className="stars">{Array(Math.floor(rating)).fill('⭐️')}</p>
+        </div>
+        <div className="right">
+          <div className="favorite" onClick={() => clickHandler()}>
+            {checked ? '❤️' : '🤍'}
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
