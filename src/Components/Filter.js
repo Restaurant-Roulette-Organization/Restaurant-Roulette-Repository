@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useRestaurantContext } from '../Context/RestaurantContext';
+import { useUserContext } from '../Context/UserContext';
 import { fetchRestaurants } from '../services/yelp';
 
 export default function Filter() {
-  const {
-    zipcode,
-    setZipcode,
-    search,
-    setSearch,
-    setRestaurants,
-    error,
-    setError,
-    setLoading,
-    price,
-    setPrice,
-  } = useRestaurantContext();
+  const { zipcode, setZipcode, search, setSearch, setRestaurants, error, setError, setLoading } =
+    useRestaurantContext();
+  const { lat, long } = useUserContext();
 
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [debouncedZip, setDebouncedZip] = useState('');
@@ -33,10 +25,9 @@ export default function Filter() {
         setError('Please enter your zipcode.');
       } else {
         setError('');
-        const searchData = await fetchRestaurants(zipcode, search, price);
-
+        const searchData = await fetchRestaurants(search, lat, long);
         setLoading(false);
-        setRestaurants(searchData);
+        return setRestaurants(searchData.businesses);
       }
     } catch (e) {
       setError(e.message);
@@ -65,12 +56,12 @@ export default function Filter() {
       </div>
       <button onClick={handleChange}>search</button>
       <div className="dropdown">
-        <select value={price} onChange={(e) => setPrice(e.target.value)}>
+        {/* <select value={price} onChange={(e) => setPrice(e.target.value)}>
           <option value="1">$</option>
           <option value="2">$$</option>
           <option value="3">$$$</option>
           <option value="4">$$$$</option>
-        </select>
+        </select> */}
       </div>
     </div>
   );

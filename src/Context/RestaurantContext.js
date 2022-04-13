@@ -1,5 +1,6 @@
-import { createContext, useEffect, useContext, useState } from 'react';
+import { createContext, useEffect, useContext, useState, useCallback } from 'react';
 import { fetchRestaurants } from '../services/yelp';
+import { useUserContext } from './UserContext';
 const RestaurantContext = createContext();
 const RestaurantProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState([]);
@@ -7,11 +8,27 @@ const RestaurantProvider = ({ children }) => {
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-  const [price, setPrice] = useState('');
+  const { lat, long, setLat, setLong } = useUserContext();
+
+  const success = useCallback(
+    async (position) => {
+      const {
+        coords: { latitude, longitude },
+      } = position;
+      setLat(latitude);
+      setLong(longitude);
+    },
+    [setLat, setLong]
+  );
   useEffect(() => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(success);
+    }
     try {
       const fetchData = async () => {
-        const data = await fetchRestaurants();
+        console.log('running');
+        if (!lat || !long) return;
+        const data = await fetchRestaurants('', lat, long);
         setRestaurants(data);
         setLoading(false);
       };
@@ -19,7 +36,7 @@ const RestaurantProvider = ({ children }) => {
     } catch (e) {
       setError(e.message);
     }
-  }, []);
+  }, [lat, long, success]);
   return (
     <RestaurantContext.Provider
       value={{
@@ -33,8 +50,6 @@ const RestaurantProvider = ({ children }) => {
         setLoading,
         error,
         setError,
-        price,
-        setPrice,
       }}
     >
       {children}

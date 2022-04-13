@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { RestaurantListItem } from '../../Components/Restaurant-List/Restaurant-List';
 import Filter from '../../Components/Filter';
 import { useRestaurantContext } from '../../Context/RestaurantContext';
-// import Dropdown from '../../Components/Dropdown/Dropdown';
+import { useUserContext } from '../../Context/UserContext';
 export default function Home() {
-  const { restaurants, error, loading } = useRestaurantContext();
+  const { restaurants, error } = useRestaurantContext();
   const [selected, setSelected] = useState(null);
+  const [loading, setloading] = useState(true);
 
   const [isFiltering, setIsFiltering] = useState(false);
 
@@ -13,7 +14,9 @@ export default function Home() {
     const randomNum = Math.floor(Math.random() * array.length);
     return array[randomNum];
   };
-  //   if (loading) return <div>loading</div>;
+
+  // if (loading) return <div> loading</div>;
+
   return (
     <div>
       <button onClick={() => setSelected(randomIndex(restaurants))}>Restaurant Roulette</button>
@@ -28,8 +31,7 @@ export default function Home() {
         <p>Results: {restaurants.length}</p>
         {selected && <button onClick={() => setSelected(null)}>See All</button>}
       </div>
-      {loading && <div className="loader">loader</div>}
-      {selected ? (
+      {!loading && selected ? (
         <RestaurantListItem {...selected} />
       ) : (
         restaurants.map((data) => <RestaurantListItem key={data.id} {...data} />)

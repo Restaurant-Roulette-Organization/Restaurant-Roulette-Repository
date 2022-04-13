@@ -2,12 +2,13 @@ const fetch = require('node-fetch');
 require('dotenv').config({ path: `.env.development.local` });
 
 const handler = async (event) => {
-  const zip = event.queryStringParameters.zip;
+  // const zip = event.queryStringParameters.zip;
   const search = event.queryStringParameters.search;
-  const price = event.queryStringParameters.price;
+  const { latitude, longitude } = event.queryStringParameters;
+
   try {
     const resp = await fetch(
-      `https://api.yelp.com/v3/businesses/search?location=${zip}&term=${search}&price=${price}`,
+      `https://api.yelp.com/v3/businesses/search?latitude=${latitude}&longitude=${longitude}&term=${search}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.YELP_API_KEY}`,

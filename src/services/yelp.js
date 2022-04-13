@@ -1,20 +1,23 @@
 import { getFavorites } from './favorites';
 
-export async function fetchRestaurants(zip = '97034', search = '', price = '1,2,3,4') {
+export async function fetchRestaurants(search = '', lat = '', long = '') {
   const params = new URLSearchParams();
-  params.set('zip', zip);
+  console.log(lat, long, 'string');
   params.set('search', search);
-  params.set('price', price);
+  // params.set('location', zip);
+  params.set('latitude', lat);
+  params.set('longitude', long);
   const resp = await fetch(`/.netlify/functions/fetch-yelp?${params.toString()}`, {
     headers: { Accept: 'application/json' },
   });
+  console.log('resp', resp);
 
   const { businesses } = await resp.json();
-  const favs = await getFavorites();
-  const aliases = favs.map(({ restaurant_alias }) => restaurant_alias);
+  console.log(businesses);
+  const favorites = await getFavorites();
   const mutated = businesses.map((business) => {
-    for (const alias of aliases) {
-      if (alias === business.alias) return { ...business, checked: true };
+    for (const favorite of favorites) {
+      if (favorite.restaurant_alias === business.alias) return { ...business, checked: true };
     }
     return business;
   });
