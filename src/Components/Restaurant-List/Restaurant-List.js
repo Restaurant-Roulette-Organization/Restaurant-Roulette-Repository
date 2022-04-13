@@ -15,7 +15,7 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias, chec
     setRestaurants(data);
   };
   return (
-    <Link>
+    <Link to={`/restaurants/${alias}`}>
       <div className="card">
         <div className="restaurant-image" style={{ backgroundImage: `url(${image_url})` }}></div>
 

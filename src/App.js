@@ -19,7 +19,7 @@ function App() {
         <Route exact path={'/'}>
           <Home />
         </Route>
-        <Route exact path={'/:alias'}>
+        <Route exact path={'/restaurants/:alias'}>
           <RestaurantDetail />
         </Route>
         <Route path={'/auth'}>
