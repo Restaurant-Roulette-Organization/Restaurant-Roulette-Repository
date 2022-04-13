@@ -42,6 +42,15 @@ export default function NavHeader() {
       </div>
       <div>
         {currentUser && (
+          <button>
+            <NavLink exact to="/aboutme">
+              About Creators
+            </NavLink>
+          </button>
+        )}
+      </div>
+      <div>
+        {currentUser && (
           <div>
             <p>User: {currentUser}</p>
             <button className="logout" onClick={handleLogout}>
