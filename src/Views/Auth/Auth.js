@@ -11,14 +11,12 @@ export default function Auth() {
   const [type, setType] = useState('signin');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { setCurrentUser, lat, long, userName, setUserName } = useUserContext();
-  const { setRestaurants } = useRestaurantContext();
+  const { setCurrentUser, userName, setUserName } = useUserContext();
 
   const history = useHistory();
 
   const handleSignup = async () => {
     const user = await signUpUser(email, password);
-    console.log(user, 'user');
     await insertProfileData(userName, user.id);
     setUserName('');
   };
@@ -32,7 +30,6 @@ export default function Auth() {
     try {
       type === 'signin' ? await signInUser(email, password) : await handleSignup();
       setCurrentUser(getUser());
-      setRestaurants(await fetchRestaurants('', lat, long));
       history.push('/');
     } catch (e) {
       e.message ? setErrorMessage(e.message) : setErrorMessage('Unable to sign in. Try again');

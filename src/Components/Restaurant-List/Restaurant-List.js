@@ -19,6 +19,7 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias, chec
     !checked ? await createFavorite(alias, user) : await deleteFavorite(alias, user);
     // const data = await fetchRestaurants('', lat, long);
   };
+  setTimeout(() => {}, 1000);
   return (
     <div className="card">
       <Link to={`/restaurants/${alias}`}>
