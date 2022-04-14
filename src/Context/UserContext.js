@@ -6,9 +6,30 @@ const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(getUser());
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
+  const [profilePic, setProfilePic] = useState();
+  const [bio, setBio] = useState();
+  const [food, setFood] = useState();
+  const [userName, setUserName] = useState('');
 
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser, long, setLong, lat, setLat }}>
+    <UserContext.Provider
+      value={{
+        currentUser,
+        setCurrentUser,
+        long,
+        setLong,
+        lat,
+        setLat,
+        profilePic,
+        setProfilePic,
+        bio,
+        setBio,
+        food,
+        setFood,
+        userName,
+        setUserName,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

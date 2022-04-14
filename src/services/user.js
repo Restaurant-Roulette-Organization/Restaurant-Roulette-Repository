@@ -22,3 +22,26 @@ export async function logout() {
   const resp = await client.auth.signOut();
   return checkError(resp);
 }
+
+//----------------- profile ----------------------
+
+export async function fetchProfileData() {
+  const resp = await client.from('profiles').select('*');
+
+  return checkError(resp);
+}
+
+export async function insertProfileData(userName, id) {
+  const user = await client.from('profiles').insert({ userName, id });
+  console.log(user, 'supabase user');
+
+  return checkError(user);
+}
+
+export async function updateProfileData(profile_picture, userName, bio, favorite_food) {
+  const user = await client
+    .from('profiles')
+    .update({ profile_picture, userName, bio, favorite_food });
+
+  return checkError(user);
+}
