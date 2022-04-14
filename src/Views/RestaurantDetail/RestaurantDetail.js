@@ -5,6 +5,8 @@ import { useRestaurantContext } from '../../Context/RestaurantContext';
 import { getUserId } from '../../services/user';
 import { createFavorite, deleteFavorite } from '../../services/favorites';
 import Notes from '../../Components/Notes/Notes';
+import { fetchNote } from '../../services/notes';
+import { useUserContext } from '../../Context/UserContext';
 
 // need to check if alias match on the notes table, so that fetch call sets state. need newNote state to set note?
 
@@ -12,17 +14,26 @@ export default function RestaurantDetail() {
   const { restaurants, error, setError, note } = useRestaurantContext();
 
   const [success, setSuccess] = useState(false);
+<<<<<<< HEAD
+=======
+  const { restaurants, error, setError } = useRestaurantContext();
+  const { currentUser } = useUserContext();
+>>>>>>> d31f39aaa681c4ccc1cfe790db1c83fd00290f9c
 
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [notes, setNotes] = useState(null);
 
   const { alias } = useParams();
 
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
         const restaurantObject = restaurants.find((item) => item.alias === alias);
         setRestaurant(restaurantObject);
+        const noteData = await fetchNote(alias);
+        // if (noteData) return notes;
+        setNotes(noteData[0]);
         setLoading(false);
       } catch (e) {
         setError(e.message);
@@ -51,20 +62,40 @@ export default function RestaurantDetail() {
         className="restaurant-image-detail"
         style={{ backgroundImage: `url(${restaurant.image_url})` }}
       ></div>
+      <h3 className="title">{restaurant.name}</h3>
+      <div
+        className="restaurant-image"
+        style={{ backgroundImage: `url(${restaurant.image_url})` }}
+      ></div>
+      <p className="price">{restaurant.price}</p>
       <p className="stars">{Array(Math.floor(restaurant.rating)).fill('⭐️')}</p>
       <p>{restaurant.location.address1}</p>
       <p>{restaurant.display_phone}</p>
+      {currentUser && (
+        <div className="favorite" onClick={() => clickHandler()}>
+          {restaurant.checked ? '❤️' : '🤍'}
+        </div>
+      )}
+      {/* <div>{notes}</div> */}
       <div className="favorite" onClick={() => clickHandler()}>
         {restaurant.checked ? '❤️' : '🤍'}
       </div>
       {success && <h3>Note successfully added!</h3>}
       {/* <p>enter correct state to display note</p> */}
-      <Notes
         {...{
           setSuccess,
           alias,
         }}
-      />
+      <p>{notes.note}</p>
+      {!notes && (
+        <Notes
+          {...{
+            setSuccess,
+            alias,
+          }}
+        />
+      )}
+      <Notes />
     </div>
   );
 }
