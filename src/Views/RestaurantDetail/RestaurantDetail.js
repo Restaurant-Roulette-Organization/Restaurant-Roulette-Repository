@@ -6,19 +6,13 @@ import { getUserId } from '../../services/user';
 import { createFavorite, deleteFavorite } from '../../services/favorites';
 import Notes from '../../Components/Notes/Notes';
 import { fetchNote } from '../../services/notes';
-import { useUserContext } from '../../Context/UserContext';
-
-// need to check if alias match on the notes table, so that fetch call sets state. need newNote state to set note?
 
 export default function RestaurantDetail() {
-  const { restaurants, error, setError, note } = useRestaurantContext();
-
+  const { restaurants, error, setError } = useRestaurantContext();
   const [success, setSuccess] = useState(false);
-
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
   const [notes, setNotes] = useState(null);
-
   const { alias } = useParams();
 
   useEffect(() => {
@@ -27,7 +21,6 @@ export default function RestaurantDetail() {
         const restaurantObject = restaurants.find((item) => item.alias === alias);
         setRestaurant(restaurantObject);
         const noteData = await fetchNote(alias);
-        // if (noteData) return notes;
         setNotes(noteData[0]);
         setLoading(false);
       } catch (e) {
@@ -61,7 +54,6 @@ export default function RestaurantDetail() {
       <p className="stars">{Array(Math.floor(restaurant.rating)).fill('⭐️')}</p>
       <p>{restaurant.location.address1}</p>
       <p>{restaurant.display_phone}</p>
-      {/* <div>{notes}</div> */}
       <div className="favorite" onClick={() => clickHandler()}>
         {restaurant.checked ? '❤️' : '🤍'}
       </div>
@@ -75,12 +67,6 @@ export default function RestaurantDetail() {
           }}
         />
       )}
-      <Notes
-        {...{
-          setSuccess,
-          alias,
-        }}
-      />
     </div>
   );
 }
