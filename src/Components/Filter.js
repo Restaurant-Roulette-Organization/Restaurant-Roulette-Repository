@@ -43,15 +43,17 @@ export default function Filter() {
   // finish restaurants
   return (
     <div className="filter">
-      <div className="filter-control">
-        {error && <p>{error}</p>}
-        <label>zipcode:</label>
-        <input
-          type="text"
-          placeholder={zipcode}
-          onChange={(e) => setDebouncedZip(e.target.value)}
-        />
-      </div>
+      {!lat && !long && (
+        <div className="filter-control">
+          {error && <p>{error}</p>}
+          <label>zipcode:</label>
+          <input
+            type="text"
+            placeholder={zipcode}
+            onChange={(e) => setDebouncedZip(e.target.value)}
+          />
+        </div>
+      )}
       <div className="filter-control">
         <label> query:</label>
         <input
