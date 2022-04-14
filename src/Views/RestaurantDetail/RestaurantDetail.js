@@ -6,9 +6,11 @@ import { getUserId } from '../../services/user';
 import { createFavorite, deleteFavorite } from '../../services/favorites';
 import Notes from '../../Components/Notes/Notes';
 import { fetchNote } from '../../services/notes';
+import { useUserContext } from '../../Context/UserContext';
 
 export default function RestaurantDetail() {
   const { restaurants, error, setError } = useRestaurantContext();
+  const { currentUser } = useUserContext();
   const [success, setSuccess] = useState(false);
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -21,8 +23,7 @@ export default function RestaurantDetail() {
         const restaurantObject = restaurants.find((item) => item.alias === alias);
         setRestaurant(restaurantObject);
         const noteData = await fetchNote(alias);
-        setNotes(noteData[0]);
-        setLoading(false);
+        !noteData ? setLoading(false) : setNotes(noteData[0]);
       } catch (e) {
         setError(e.message);
       }
@@ -51,19 +52,22 @@ export default function RestaurantDetail() {
       <p className="stars">{Array(Math.floor(restaurant.rating)).fill('⭐️')}</p>
       <p>{restaurant.location.address1}</p>
       <p>{restaurant.display_phone}</p>
-
-      <div className="favorite" onClick={() => clickHandler()}>
-        {restaurant.checked ? '❤️' : '🤍'}
-      </div>
+      {currentUser && (
+        <div className="favorite" onClick={() => clickHandler()}>
+          {restaurant.checked ? '❤️' : '🤍'}
+        </div>
+      )}
       {success && <h3>Note successfully added!</h3>}
-      <p>{notes.note}</p>
-      {!notes && (
+
+      {!notes ? (
         <Notes
           {...{
             setSuccess,
             alias,
           }}
         />
+      ) : (
+        <p>{notes.note}</p>
       )}
     </div>
   );
