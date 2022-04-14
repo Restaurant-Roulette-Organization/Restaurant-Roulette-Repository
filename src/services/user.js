@@ -23,24 +23,16 @@ export async function logout() {
   return checkError(resp);
 }
 
-//----------------- like feature ----------------------
+//----------------- profile ----------------------
 
-// export async function createFavorite(id) {
-//   const resp = await client.from('Favorites').insert({ user_id: getUser().id, restraunt_id });
-// }
+export async function fetchProfileData() {
+  const { user } = await client.from('profiles').select('*');
 
-//------ notes vvv ----------
-// export async function createRating(id) {
-//     const resp = await client
-//         .from('ratings')
-//         .insert({ joke_id: id, user_id: getUser().id, liked: true });
-//     return checkError(resp);
-// }
-// export async function deleteRating(id) {
-//     const resp = await client
-//         .from('ratings')
-//         .delete()
-//         .match({ joke_id: id, user_id: getUser().id });
+  return checkError(user);
+}
 
-//     return checkError(resp);
-// }
+export async function insertProfileData() {
+  const { user } = await client.insert({ profile_picture, username, bio, favorite_food });
+
+  return checkError(user);
+}

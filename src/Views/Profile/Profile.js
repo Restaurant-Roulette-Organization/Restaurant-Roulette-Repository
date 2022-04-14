@@ -1,8 +1,9 @@
 import React from 'react';
+import { useUserContext } from '../../Context/UserContext';
 import './Profile.css';
 
 export default function Profile() {
-  const user = 'Denver';
+  const { currentUser } = useUserContext();
   const bio =
     'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo excepturi amet qui alias odit delectus neque assumenda laborum enim dolor?';
   const food = 'juice';
@@ -18,7 +19,7 @@ export default function Profile() {
           }}
           alt="user profile picture"
         />
-        <h1>Greetings, {user}</h1>
+        <h1>Greetings, {currentUser}</h1>
         <p>{bio}</p>
         <p>Your Fave Food: {food} </p>
       </div>
