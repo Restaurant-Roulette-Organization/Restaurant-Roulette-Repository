@@ -20,11 +20,6 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias, chec
     // const data = await fetchRestaurants('', lat, long);
   };
 
-  if (loading) return (<div className="loader">
-    <div className="inner">
-    </div>
-  </div>);
-
   return (
     <div className="card">
       <Link to={`/restaurants/${alias}`}>

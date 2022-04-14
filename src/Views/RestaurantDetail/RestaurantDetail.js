@@ -24,7 +24,7 @@ export default function RestaurantDetail() {
         const restaurantObject = restaurants.find((item) => item.alias === alias);
         setRestaurant(restaurantObject);
         const noteData = await fetchNote(alias);
-        !noteData ? setLoading(false) : setNotes(noteData[0]);
+        if (noteData.length) setNotes(noteData[0]);
         const timer = setTimeout(() => {
           setLoading(false);
         }, 2000);
@@ -71,6 +71,7 @@ export default function RestaurantDetail() {
           {...{
             setSuccess,
             alias,
+            setNotes,
           }}
         />
       ) : (
