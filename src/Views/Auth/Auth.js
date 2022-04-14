@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { insertProfileData, signInUser, signUpUser } from '../../services/user';
+import { getUser, insertProfileData, signInUser, signUpUser } from '../../services/user';
 import { useUserContext } from '../../Context/UserContext';
 import { useHistory } from 'react-router-dom';
 import { useRestaurantContext } from '../../Context/RestaurantContext';
@@ -29,8 +29,8 @@ export default function Auth() {
     setErrorMessage('');
     if (!email || !password) return;
     try {
-      const user = type === 'signin' ? await signInUser(email, password) : await handleSignup();
-      setCurrentUser(user.email);
+      type === 'signin' ? await signInUser(email, password) : await handleSignup();
+      setCurrentUser(getUser());
       setRestaurants(await fetchRestaurants('', lat, long));
       history.push('/');
     } catch (e) {
