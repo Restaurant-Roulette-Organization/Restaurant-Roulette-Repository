@@ -6,21 +6,23 @@ import { getUserId } from '../../services/user';
 import { createFavorite, deleteFavorite } from '../../services/favorites';
 import Notes from '../../Components/Notes/Notes';
 
-
+// need to check if alias match on the notes table, so that fetch call sets state. need newNote state to set note?
 
 export default function RestaurantDetail() {
-  const { restaurants, error, setError } = useRestaurantContext();
+  const { restaurants, error, setError, note } = useRestaurantContext();
+
+  const [success, setSuccess] = useState(false);
   
   
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const params = useParams();
+  const { alias } = useParams();
 
   useEffect(() => {
     const fetchData = () => {
       try {
-        const restaurantObject = restaurants.find(item => item.alias === params.alias);
+        const restaurantObject = restaurants.find(item => item.alias === alias);
         setRestaurant(restaurantObject);
         setLoading(false);
       } catch (e) {
@@ -28,12 +30,12 @@ export default function RestaurantDetail() {
       }
     };
     fetchData();
-  }, [params.alias, setError, setLoading, setRestaurant, restaurants]);
+  }, [alias, setError, setLoading, setRestaurant, restaurants]);
   if (loading || !restaurant) return <h1>Loading...</h1>;
 
   const clickHandler = async () => {
     const user = getUserId();
-    !restaurant.checked ? await createFavorite(params.alias, user) : await deleteFavorite(params.alias, user);
+    !restaurant.checked ? await createFavorite(alias, user) : await deleteFavorite(alias, user);
     setRestaurant((prev) => {return { ...prev, checked: !prev.checked };});
     
   };
@@ -50,7 +52,14 @@ export default function RestaurantDetail() {
       <div className="favorite" onClick={() => clickHandler()}>
         {restaurant.checked ? '❤️' : '🤍'}
       </div>
-      <Notes />
+      {success && <h3>Note successfully added!</h3>}
+      {/* <p>enter correct state to display note</p> */}
+      <Notes
+        {...{
+          setSuccess,
+          alias
+        }}
+      />
     </div>
   );
 }
