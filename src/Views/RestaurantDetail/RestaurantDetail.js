@@ -6,6 +6,7 @@ import { getUserId } from '../../services/user';
 import { createFavorite, deleteFavorite } from '../../services/favorites';
 import Notes from '../../Components/Notes/Notes';
 import { fetchNote } from '../../services/notes';
+import { useUserContext } from '../../Context/UserContext';
 
 // need to check if alias match on the notes table, so that fetch call sets state. need newNote state to set note?
 
@@ -13,6 +14,9 @@ export default function RestaurantDetail() {
   const { restaurants, error, setError, note } = useRestaurantContext();
 
   const [success, setSuccess] = useState(false);
+  const { restaurants, error, setError } = useRestaurantContext();
+  const { currentUser } = useUserContext();
+
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
   const [notes, setNotes] = useState(null);
@@ -56,9 +60,18 @@ export default function RestaurantDetail() {
       <p className="stars">{Array(Math.floor(restaurant.rating)).fill('⭐️')}</p>
       <p>{restaurant.location.address1}</p>
       <p>{restaurant.display_phone}</p>
+<<<<<<< HEAD
+      {currentUser && (
+        <div className="favorite" onClick={() => clickHandler()}>
+          {restaurant.checked ? '❤️' : '🤍'}
+        </div>
+      )}
+      {/* <div>{notes}</div> */}
+=======
       <div className="favorite" onClick={() => clickHandler()}>
         {restaurant.checked ? '❤️' : '🤍'}
       </div>
+<<<<<<< HEAD
       {success && <h3>Note successfully added!</h3>}
       <p>{notes.note}</p>
       {!notes && (
@@ -69,6 +82,10 @@ export default function RestaurantDetail() {
           }}
         />
       )}
+=======
+      <Notes />
+>>>>>>> aafb3bd4b5f92367528d8c50a93ebfcdd1707aa5
+>>>>>>> 005ecebe88868e3d8205ade8aac5646c3ee27156
     </div>
   );
 }
