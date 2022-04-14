@@ -1,4 +1,3 @@
-import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { useRestaurantContext } from '../../Context/RestaurantContext';
 import { useUserContext } from '../../Context/UserContext';
@@ -6,7 +5,11 @@ import { logout } from '../../services/user';
 import { fetchRestaurantZip } from '../../services/yelp';
 
 export default function NavHeader() {
-  const { currentUser, setCurrentUser } = useUserContext();
+  const {
+    currentUser,
+    setCurrentUser,
+    profile: { userName },
+  } = useUserContext();
   const { setRestaurants } = useRestaurantContext();
 
   const handleLogout = async () => {
@@ -52,7 +55,7 @@ export default function NavHeader() {
       <div>
         {currentUser && (
           <div>
-            <p>User: {currentUser}</p>
+            <p>User: {userName}</p>
             <button className="logout" onClick={handleLogout}>
               Logout
             </button>

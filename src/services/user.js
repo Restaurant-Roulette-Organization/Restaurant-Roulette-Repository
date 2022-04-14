@@ -26,14 +26,14 @@ export async function logout() {
 //----------------- profile ----------------------
 
 export async function fetchProfileData() {
-  const resp = await client.from('profiles').select('*');
+  const resp = await client.from('profiles').select('*').single();
+  console.log(resp);
 
   return checkError(resp);
 }
 
 export async function insertProfileData(userName, id) {
   const user = await client.from('profiles').insert({ userName, id });
-  console.log(user, 'supabase user');
 
   return checkError(user);
 }
