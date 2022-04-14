@@ -5,6 +5,7 @@ import { useRestaurantContext } from '../../Context/RestaurantContext';
 import { getUserId } from '../../services/user';
 import { createFavorite, deleteFavorite } from '../../services/favorites';
 import Notes from '../../Components/Notes/Notes';
+import { fetchNote } from '../../services/notes';
 
 // need to check if alias match on the notes table, so that fetch call sets state. need newNote state to set note?
 
@@ -12,18 +13,20 @@ export default function RestaurantDetail() {
   const { restaurants, error, setError, note } = useRestaurantContext();
 
   const [success, setSuccess] = useState(false);
-  
-  
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [notes, setNotes] = useState(null);
 
   const { alias } = useParams();
 
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
-        const restaurantObject = restaurants.find(item => item.alias === alias);
+        const restaurantObject = restaurants.find((item) => item.alias === alias);
         setRestaurant(restaurantObject);
+        const noteData = await fetchNote(alias);
+        // if (noteData) return notes;
+        setNotes(noteData[0]);
         setLoading(false);
       } catch (e) {
         setError(e.message);
@@ -36,15 +39,19 @@ export default function RestaurantDetail() {
   const clickHandler = async () => {
     const user = getUserId();
     !restaurant.checked ? await createFavorite(alias, user) : await deleteFavorite(alias, user);
-    setRestaurant((prev) => {return { ...prev, checked: !prev.checked };});
-    
+    setRestaurant((prev) => {
+      return { ...prev, checked: !prev.checked };
+    });
   };
 
   return (
     <div>
       {error && <p>{error}</p>}
       <h3 className="title">{restaurant.name}</h3>
-      <div className="restaurant-image" style={{ backgroundImage: `url(${restaurant.image_url})` }}></div>
+      <div
+        className="restaurant-image"
+        style={{ backgroundImage: `url(${restaurant.image_url})` }}
+      ></div>
       <p className="price">{restaurant.price}</p>
       <p className="stars">{Array(Math.floor(restaurant.rating)).fill('⭐️')}</p>
       <p>{restaurant.location.address1}</p>
@@ -53,13 +60,15 @@ export default function RestaurantDetail() {
         {restaurant.checked ? '❤️' : '🤍'}
       </div>
       {success && <h3>Note successfully added!</h3>}
-      {/* <p>enter correct state to display note</p> */}
-      <Notes
-        {...{
-          setSuccess,
-          alias
-        }}
-      />
+      <p>{notes.note}</p>
+      {!notes && (
+        <Notes
+          {...{
+            setSuccess,
+            alias,
+          }}
+        />
+      )}
     </div>
   );
 }
