@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { fetchProfileData, getUser } from '../services/user';
+import { getUser } from '../services/user';
 
 const UserContext = createContext();
 const UserProvider = ({ children }) => {
@@ -9,10 +9,27 @@ const UserProvider = ({ children }) => {
   const [profilePic, setProfilePic] = useState();
   const [bio, setBio] = useState();
   const [food, setFood] = useState();
-  const [username, setUserName] = useState();
+  const [userName, setUserName] = useState('');
 
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser, long, setLong, lat, setLat, profilePic, setProfilePic, bio, setBio, food, setFood, username, setUserName }}>
+    <UserContext.Provider
+      value={{
+        currentUser,
+        setCurrentUser,
+        long,
+        setLong,
+        lat,
+        setLat,
+        profilePic,
+        setProfilePic,
+        bio,
+        setBio,
+        food,
+        setFood,
+        userName,
+        setUserName,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

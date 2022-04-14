@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { RestaurantListItem } from '../../Components/Restaurant-List/Restaurant-List';
 import Filter from '../../Components/Filter';
 import { useRestaurantContext } from '../../Context/RestaurantContext';
-import { useUserContext } from '../../Context/UserContext';
 export default function Home() {
   const { restaurants, error } = useRestaurantContext();
   const [selected, setSelected] = useState(null);

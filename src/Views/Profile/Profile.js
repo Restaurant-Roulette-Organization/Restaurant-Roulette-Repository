@@ -4,8 +4,19 @@ import { fetchProfileData, updateProfileData, insertProfileData } from '../../se
 import './Profile.css';
 
 export default function Profile() {
-  const { currentUser, profilePic, setProfilePic, bio, setBio, food, setFood, username, setUserName } = useUserContext();
+  const {
+    currentUser,
+    profilePic,
+    setProfilePic,
+    bio,
+    setBio,
+    food,
+    setFood,
+    username,
+    setUserName,
+  } = useUserContext();
   const [error, setError] = useState('');
+  
   const saveProfile = async (e) => {
     try {
       e.preventDefault();
@@ -23,7 +34,7 @@ export default function Profile() {
         <div
           className="pfp"
           style={{
-            backgroundImage: `url(https://i.pinimg.com/564x/cb/b6/1d/cbb61dc9f560a4e96c2c64f41a90ce3f.jpg)`,
+            backgroundImage: `${profilePic}`,
           }}
           alt="user profile picture"
         />
@@ -37,7 +48,10 @@ export default function Profile() {
       {error && (
         <p>
           {error}{' '}
-          <span onClick={() => setError('')}> --- Something went wrong when creating your profile!!!</span>
+          <span onClick={() => setError('')}>
+            {' '}
+            --- Something went wrong when creating your profile!!!
+          </span>
         </p>
       )}
 
@@ -59,7 +73,11 @@ export default function Profile() {
             </label>
             <label>
               Image
-              <input type="text" value={profilePic} onChange={(e) => setProfilePic(e.target.value)} />
+              <input
+                type="text"
+                value={profilePic}
+                onChange={(e) => setProfilePic(e.target.value)}
+              />
             </label>
             <button onClick={saveProfile}>Save Profile</button>
           </form>

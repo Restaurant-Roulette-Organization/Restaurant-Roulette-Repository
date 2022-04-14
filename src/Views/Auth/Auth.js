@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { signInUser, signUpUser } from '../../services/user';
+import { insertProfileData, signInUser, signUpUser } from '../../services/user';
 import { useUserContext } from '../../Context/UserContext';
 import { useHistory } from 'react-router-dom';
 import { useRestaurantContext } from '../../Context/RestaurantContext';
@@ -11,18 +11,24 @@ export default function Auth() {
   const [type, setType] = useState('signin');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { setCurrentUser, lat, long } = useUserContext();
+  const { setCurrentUser, lat, long, userName, setUserName } = useUserContext();
   const { setRestaurants } = useRestaurantContext();
 
   const history = useHistory();
+
+  const handleSignup = async () => {
+    await signUpUser(email, password);
+    await insertProfileData(userName);
+  };
+
+  // {signUpUser(email, password) insertProfileData(userName)}
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     if (!email || !password) return;
     try {
-      const user =
-        type === 'signin' ? await signInUser(email, password) : await signUpUser(email, password);
+      const user = type === 'signin' ? await signInUser(email, password) : await handleSignup();
       setCurrentUser(user.email);
       setRestaurants(await fetchRestaurants('', lat, long));
       history.push('/');
@@ -34,13 +40,19 @@ export default function Auth() {
   return (
     <div className="auth">
       <span className={type === 'signin' ? 'active' : ''} onClick={() => setType('signin')}>
-        Sign In
+        [Sign In]
       </span>
       <span className={type === 'signup' ? 'active' : ''} onClick={() => setType('signup')}>
-        Sign Up
+        [Sign Up]
       </span>
       <div className="error-message">{errorMessage}</div>
       <form className="auth-form" onSubmit={handleSubmit}>
+        {type === 'signup' && (
+          <label>
+            Username
+            <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
+          </label>
+        )}
         <label>
           email:
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -49,6 +61,7 @@ export default function Auth() {
           password:
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
+
         <input type="submit" />
       </form>
     </div>

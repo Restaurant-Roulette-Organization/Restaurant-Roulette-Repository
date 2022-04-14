@@ -31,18 +31,16 @@ export async function fetchProfileData() {
   return checkError(resp);
 }
 
-export async function insertProfileData(profile_picture, username, bio, favorite_food) {
-  const { user } = await client
-    .from('profiles')
-    .insert({ profile_picture, username, bio, favorite_food });
+export async function insertProfileData(userName) {
+  const user = await client.from('profiles').insert({ userName });
 
   return checkError(user);
 }
 
-export async function updateProfileData(profile_picture, username, bio, favorite_food) {
-  const { user } = await client
+export async function updateProfileData(profile_picture, userName, bio, favorite_food) {
+  const user = await client
     .from('profiles')
-    .update({ profile_picture, username, bio, favorite_food });
+    .update({ profile_picture, userName, bio, favorite_food });
 
   return checkError(user);
 }
