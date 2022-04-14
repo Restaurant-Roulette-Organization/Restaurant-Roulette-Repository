@@ -7,11 +7,7 @@ import { createFavorite, deleteFavorite } from '../../services/favorites';
 import Notes from '../../Components/Notes/Notes';
 import { fetchNote } from '../../services/notes';
 import { useUserContext } from '../../Context/UserContext';
-<<<<<<< HEAD
-import { useLocation } from 'react-router-dom';
-=======
 import Loader from '../../Components/Loader/Loader';
->>>>>>> 890481502ddf09bdfa4e19fe5aef265f7099bd15
 
 export default function RestaurantDetail() {
   const { restaurants, error, setError } = useRestaurantContext();
@@ -41,7 +37,7 @@ export default function RestaurantDetail() {
     };
     fetchData();
   }, [alias, setError, setLoading, setRestaurant, restaurants]);
-  if (loading || !restaurant) return <Loader/>;
+  if (loading || !restaurant) return <Loader />;
 
   const clickHandler = async () => {
     const user = getUserId();
