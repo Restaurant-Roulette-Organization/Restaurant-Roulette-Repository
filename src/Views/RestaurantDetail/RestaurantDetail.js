@@ -7,7 +7,11 @@ import { createFavorite, deleteFavorite } from '../../services/favorites';
 import Notes from '../../Components/Notes/Notes';
 import { fetchNote } from '../../services/notes';
 import { useUserContext } from '../../Context/UserContext';
+<<<<<<< HEAD
 import { useLocation } from 'react-router-dom';
+=======
+import Loader from '../../Components/Loader/Loader';
+>>>>>>> 890481502ddf09bdfa4e19fe5aef265f7099bd15
 
 export default function RestaurantDetail() {
   const { restaurants, error, setError } = useRestaurantContext();
@@ -24,15 +28,20 @@ export default function RestaurantDetail() {
         const restaurantObject = restaurants.find((item) => item.alias === alias);
         setRestaurant(restaurantObject);
         const noteData = await fetchNote(alias);
-        !noteData ? setLoading(false) : setNotes(noteData[0]);
-        setLoading(false);
+        if (noteData.length) setNotes(noteData[0]);
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+        return () => {
+          clearTimeout(timer);
+        };
       } catch (e) {
         setError(e.message);
       }
     };
     fetchData();
   }, [alias, setError, setLoading, setRestaurant, restaurants]);
-  if (loading || !restaurant) return <h1>Loading...</h1>;
+  if (loading || !restaurant) return <Loader/>;
 
   const clickHandler = async () => {
     const user = getUserId();
@@ -43,7 +52,7 @@ export default function RestaurantDetail() {
   };
 
   return (
-    <div>
+    <div className="card">
       {error && <p>{error}</p>}
       <h3 className="title">{restaurant.name}</h3>
       <div
@@ -54,11 +63,13 @@ export default function RestaurantDetail() {
       <p className="stars">{Array(Math.floor(restaurant.rating)).fill('⭐️')}</p>
       <p>{restaurant.location.address1}</p>
       <p>{restaurant.display_phone}</p>
-      {currentUser && (
-        <div className="favorite" onClick={() => clickHandler()}>
-          {restaurant.checked ? '❤️' : '🤍'}
-        </div>
-      )}
+      <div className="card-info">
+        {currentUser && (
+          <div className="favorite" onClick={() => clickHandler()}>
+            {restaurant.checked ? '❤️' : '🤍'}
+          </div>
+        )}
+      </div>
       {success && <h3>Note successfully added!</h3>}
 
       {!notes ? (
@@ -66,6 +77,7 @@ export default function RestaurantDetail() {
           {...{
             setSuccess,
             alias,
+            setNotes,
           }}
         />
       ) : (

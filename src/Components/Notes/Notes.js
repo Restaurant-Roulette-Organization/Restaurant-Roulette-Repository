@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useRestaurantContext } from '../../Context/RestaurantContext';
 import { createNote } from '../../services/notes';
 
-export default function Notes({ setSuccess, alias }) {
+export default function Notes({ setSuccess, alias, setNotes }) {
   const { note, setNote, setError } = useRestaurantContext();
 
   const location = useLocation();
@@ -14,8 +14,9 @@ export default function Notes({ setSuccess, alias }) {
 
   const handleSubmit = async () => {
     try {
-      await createNote(note, alias);
+      const resp = await createNote(note, alias);
       setSuccess(true);
+      setNotes(resp[0]);
     } catch (e) {
       setError(e.message);
     }

@@ -1,0 +1,17 @@
+.nav-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+button {
+  background-color: var(--color2);
+  border-radius: 8px;
+  margin: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-color: var(--color3);
+  color: black;
+}
+p {
+  color: var(--color1);
+}

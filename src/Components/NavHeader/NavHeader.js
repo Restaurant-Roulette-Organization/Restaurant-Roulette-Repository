@@ -3,7 +3,7 @@ import { useRestaurantContext } from '../../Context/RestaurantContext';
 import { useUserContext } from '../../Context/UserContext';
 import { logout } from '../../services/user';
 import { fetchRestaurantZip } from '../../services/yelp';
-
+import './Header.css';
 export default function NavHeader() {
   const {
     currentUser,
