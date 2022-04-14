@@ -3,6 +3,7 @@ import { RestaurantListItem } from '../../Components/Restaurant-List/Restaurant-
 import Filter from '../../Components/Filter';
 import { useRestaurantContext } from '../../Context/RestaurantContext';
 import filter from '../../sliders.svg';
+import './Home.css';
 export default function Home() {
   const { restaurants, error } = useRestaurantContext();
   const [selected, setSelected] = useState(null);
@@ -14,25 +15,31 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <button onClick={() => setSelected(randomIndex(restaurants))}>Restaurant Roulette</button>
-      <p> </p>
-      <img onClick={() => setIsFiltering(!isFiltering)} src={filter} alt="filter" />
-      {isFiltering && (
-        <div>
-          <Filter />
+    <div className="filter-control">
+      <div className="filter-comp">
+        <div className="spin" onClick={() => setSelected(randomIndex(restaurants))}>
+          Restaurant Roulette
         </div>
-      )}
-      <div className="restaurants-container">
-        {error && <p>{error}</p>}
+        <p> </p>
+        <img onClick={() => setIsFiltering(!isFiltering)} src={filter} alt="filter" />
         <p>Results: {restaurants.length}</p>
-        {selected && <button onClick={() => setSelected(null)}>See All</button>}
+        {isFiltering && (
+          <div>
+            <Filter />
+          </div>
+        )}
       </div>
-      {selected ? (
-        <RestaurantListItem {...selected} />
-      ) : (
-        restaurants.map((data) => <RestaurantListItem key={data.id} {...data} />)
-      )}
+      <div className="restaurants-container">
+        <div>
+          {error && <p>{error}</p>}
+          {selected && <button onClick={() => setSelected(null)}>See All</button>}
+        </div>
+        {selected ? (
+          <RestaurantListItem {...selected} />
+        ) : (
+          restaurants.map((data) => <RestaurantListItem key={data.id} {...data} />)
+        )}
+      </div>
     </div>
   );
 }
