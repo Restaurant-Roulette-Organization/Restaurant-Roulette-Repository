@@ -27,7 +27,8 @@
   border: 2px solid var(--color3);
   background: linear-gradient(180deg, rgba(250, 192, 94, 1) 35%, white 100%);
   width: 12rem;
+  margin: auto;
 }
-.filter-control {
+/* .filter-control {
   justify-content: center;
-}
+} */

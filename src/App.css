@@ -52,20 +52,5 @@ body {
   display: flex;
   flex-direction: column;
   justify-items: center;
-}
-/* div {
-  width: 75rem;
-} */
-.parallax {
-  /* The image used */
   background-image: url('https://www.larchwoodcanada.com/wp-content/uploads/larchwood-classic-cutting-board-large_7652.jpg');
-
-  /* Set a specific height */
-  min-height: 500px;
-
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
