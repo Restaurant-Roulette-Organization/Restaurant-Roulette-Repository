@@ -29,6 +29,18 @@
   width: 12rem;
   margin: auto;
 }
-/* .filter-control {
+.restaurants-container {
+  margin: auto;
+}
+.spin {
+  display: flex;
   justify-content: center;
-} */
+  text-align: center;
+
+  border: 2px solid black;
+  height: 100px;
+  width: 100px;
+  background-color: rgb(241, 172, 172);
+  border-radius: 50%;
+  display: inline-block;
+}
