@@ -21,7 +21,10 @@ const RestaurantProvider = ({ children }) => {
     },
     [setLat, setLong]
   );
-  const failure = () => {
+  const failure = async () => {
+    const data = await fetchRestaurantZip();
+    console.log(data);
+    setRestaurants(data);
     setError('Unable to access location, please enter a zip code below.');
   };
   useEffect(() => {
@@ -61,7 +64,7 @@ const RestaurantProvider = ({ children }) => {
         error,
         setError,
         note,
-        setNote
+        setNote,
       }}
     >
       {children}

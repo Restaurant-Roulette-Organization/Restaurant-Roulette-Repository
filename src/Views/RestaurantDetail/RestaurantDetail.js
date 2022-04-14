@@ -7,6 +7,7 @@ import { createFavorite, deleteFavorite } from '../../services/favorites';
 import Notes from '../../Components/Notes/Notes';
 import { fetchNote } from '../../services/notes';
 import { useUserContext } from '../../Context/UserContext';
+import { useLocation } from 'react-router-dom';
 
 export default function RestaurantDetail() {
   const { restaurants, error, setError } = useRestaurantContext();
@@ -24,6 +25,7 @@ export default function RestaurantDetail() {
         setRestaurant(restaurantObject);
         const noteData = await fetchNote(alias);
         !noteData ? setLoading(false) : setNotes(noteData[0]);
+        setLoading(false);
       } catch (e) {
         setError(e.message);
       }

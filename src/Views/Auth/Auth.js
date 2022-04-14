@@ -20,6 +20,7 @@ export default function Auth() {
     const user = await signUpUser(email, password);
     console.log(user, 'user');
     await insertProfileData(userName, user.id);
+    setUserName('');
   };
 
   // {signUpUser(email, password) insertProfileData(userName)}

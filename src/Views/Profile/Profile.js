@@ -16,7 +16,7 @@ export default function Profile() {
     setUserName,
   } = useUserContext();
   const [error, setError] = useState('');
-  
+
   const saveProfile = async (e) => {
     try {
       e.preventDefault();
@@ -44,7 +44,6 @@ export default function Profile() {
       </div>
       <div className="faves"></div>
 
-      {/* --------------------------------------------------------- */}
       {error && (
         <p>
           {error}{' '}

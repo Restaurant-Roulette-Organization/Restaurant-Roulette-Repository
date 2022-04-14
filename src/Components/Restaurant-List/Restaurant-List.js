@@ -8,7 +8,7 @@ import { useUserContext } from '../../Context/UserContext';
 import Notes from '../Notes/Notes';
 
 export const RestaurantListItem = ({ name, rating, price, image_url, alias, checked }) => {
-  const { setRestaurants } = useRestaurantContext();
+  const { setRestaurants, loading } = useRestaurantContext();
   const { currentUser } = useUserContext();
 
   const clickHandler = async () => {
