@@ -17,8 +17,8 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     const getUserData = async () => {
       const user = await fetchProfileData();
-      console.log(user);
-      setProfile(user);
+      const [prof] = user;
+      user && setProfile(prof);
     };
     getUserData();
   }, []);

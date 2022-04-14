@@ -4,11 +4,12 @@ import { useUserContext } from '../Context/UserContext';
 import { fetchRestaurantZip, fetchRestaurants } from '../services/yelp';
 
 export default function Filter() {
-  const { zipcode, setZipcode, search, setSearch, setRestaurants, error, setError, setLoading } =
+  const { zipcode, setZipcode, search, setSearch, setRestaurants, setLoading } =
     useRestaurantContext();
   const { lat, long } = useUserContext();
 
   const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [error, setError] = useState('');
   const [debouncedZip, setDebouncedZip] = useState('');
 
   useEffect(() => {
@@ -40,7 +41,6 @@ export default function Filter() {
     }
   };
 
-  
   return (
     <div className="filter">
       {!lat && !long && (

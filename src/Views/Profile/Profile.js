@@ -5,22 +5,15 @@ import './Profile.css';
 
 export default function Profile() {
   const {
-    currentUser,
-    profilePic,
-    setProfilePic,
-    bio,
-    setBio,
-    food,
-    setFood,
-    username,
-    setUserName,
+    profile: { profile_picture, userName, bio, favorite_food },
+    setProfile,
   } = useUserContext();
   const [error, setError] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
 
   const saveProfile = async (e) => {
     try {
       e.preventDefault();
-      await insertProfileData({ username, bio, food, profilePic });
       history.push('/');
     } catch (e) {
       setError(e.message);
@@ -34,13 +27,13 @@ export default function Profile() {
         <div
           className="pfp"
           style={{
-            backgroundImage: `${profilePic}`,
+            backgroundImage: `url(${profile_picture})`,
           }}
           alt="user profile picture"
         />
-        <h1>Greetings, {currentUser}</h1>
+        <h1>Greetings, {userName}</h1>
         <p>{bio}</p>
-        <p>Your Fave Food: {food} </p>
+        <p>{favorite_food}</p>
       </div>
       <div className="faves"></div>
 
@@ -48,39 +41,55 @@ export default function Profile() {
         <p>
           {error}{' '}
           <span onClick={() => setError('')}>
-            {' '}
-            --- Something went wrong when creating your profile!!!
+            Something went wrong when creating your profile!!!
           </span>
         </p>
       )}
 
-      <div>Edit Profile</div>
+      <div onClick={() => setIsEditing((prev) => !prev)}>✏️</div>
       <div className="edit-profile">
-        <form>
+        {isEditing && (
           <form>
             <label>
               Name:
-              <input type="text" value={username} onChange={(e) => setUserName(e.target.value)} />
+              <input
+                type="text"
+                value={userName}
+                onChange={(e) =>
+                  setProfile((prev) => {
+                    return { ...prev, userName: e.target.value };
+                  })
+                }
+              />
             </label>
             <label>
               Bio
-              <input type="text" value={bio} onChange={(e) => setBio(e.target.value)} />
+              <input
+                type="text"
+                value={bio}
+                onChange={(e) =>
+                  setProfile((prev) => {
+                    return { ...prev, bio: e.target.value };
+                  })
+                }
+              />
             </label>
             <label>
               Food
-              <input type="text" value={food} onChange={(e) => setFood(e.target.value)} />
-            </label>
-            <label>
-              Image
               <input
                 type="text"
-                value={profilePic}
-                onChange={(e) => setProfilePic(e.target.value)}
+                value={favorite_food}
+                onChange={(e) =>
+                  setProfile((prev) => {
+                    return { ...prev, favorite_food: e.target.value };
+                  })
+                }
               />
             </label>
+
             <button onClick={saveProfile}>Save Profile</button>
           </form>
-        </form>
+        )}
       </div>
     </div>
   );

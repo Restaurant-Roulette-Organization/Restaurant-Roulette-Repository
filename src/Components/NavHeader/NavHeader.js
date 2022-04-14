@@ -55,7 +55,7 @@ export default function NavHeader() {
       <div>
         {currentUser && (
           <div>
-            <p>User: {userName}</p>
+            {userName && <p>User: {userName}</p>}
             <button className="logout" onClick={handleLogout}>
               Logout
             </button>

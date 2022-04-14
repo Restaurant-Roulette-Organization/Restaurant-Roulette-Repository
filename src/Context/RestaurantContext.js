@@ -25,7 +25,7 @@ const RestaurantProvider = ({ children }) => {
     const data = await fetchRestaurantZip();
     console.log(data);
     setRestaurants(data);
-    setError('Unable to access location, please enter a zip code below.');
+    setError('Unable to access location, please enter a zip code above.');
   };
   useEffect(() => {
     if ('geolocation' in navigator) {
