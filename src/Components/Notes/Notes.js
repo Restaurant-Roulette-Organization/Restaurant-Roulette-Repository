@@ -3,14 +3,15 @@ import { createNote } from '../../services/notes';
 
 
 export default function Notes({
-  setSuccess, alias
+  setSuccess, alias, setNotes
 }) {
   const { note, setNote, setError } = useRestaurantContext();
 
   const handleSubmit = async () => {
     try {
-      await createNote(note, alias);
+      const resp = await createNote(note, alias);
       setSuccess(true);
+      setNotes(resp[0]);
     } catch (e) {
       setError(e.message);
     }

@@ -7,6 +7,7 @@ import { createFavorite, deleteFavorite } from '../../services/favorites';
 import Notes from '../../Components/Notes/Notes';
 import { fetchNote } from '../../services/notes';
 import { useUserContext } from '../../Context/UserContext';
+import Loader from '../../Components/Loader/Loader';
 
 export default function RestaurantDetail() {
   const { restaurants, error, setError } = useRestaurantContext();
@@ -23,14 +24,20 @@ export default function RestaurantDetail() {
         const restaurantObject = restaurants.find((item) => item.alias === alias);
         setRestaurant(restaurantObject);
         const noteData = await fetchNote(alias);
-        !noteData ? setLoading(false) : setNotes(noteData[0]);
+        if (noteData.length) setNotes(noteData[0]);
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+        return () => {
+          clearTimeout(timer);
+        };
       } catch (e) {
         setError(e.message);
       }
     };
     fetchData();
   }, [alias, setError, setLoading, setRestaurant, restaurants]);
-  if (loading || !restaurant) return <h1>Loading...</h1>;
+  if (loading || !restaurant) return <Loader/>;
 
   const clickHandler = async () => {
     const user = getUserId();
@@ -64,6 +71,7 @@ export default function RestaurantDetail() {
           {...{
             setSuccess,
             alias,
+            setNotes,
           }}
         />
       ) : (
