@@ -17,8 +17,9 @@ export default function Auth() {
   const history = useHistory();
 
   const handleSignup = async () => {
-    await signUpUser(email, password);
-    await insertProfileData(userName);
+    const user = await signUpUser(email, password);
+    console.log(user, 'user');
+    await insertProfileData(userName, user.id);
   };
 
   // {signUpUser(email, password) insertProfileData(userName)}

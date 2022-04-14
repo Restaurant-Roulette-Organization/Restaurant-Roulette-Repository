@@ -31,8 +31,9 @@ export async function fetchProfileData() {
   return checkError(resp);
 }
 
-export async function insertProfileData(userName) {
-  const user = await client.from('profiles').insert({ userName });
+export async function insertProfileData(userName, id) {
+  const user = await client.from('profiles').insert({ userName, id });
+  console.log(user, 'supabase user');
 
   return checkError(user);
 }
