@@ -8,6 +8,7 @@ const RestaurantProvider = ({ children }) => {
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [note, setNote] = useState('');
   const { lat, long, setLat, setLong } = useUserContext();
 
   const success = useCallback(
@@ -59,6 +60,8 @@ const RestaurantProvider = ({ children }) => {
         setLoading,
         error,
         setError,
+        note,
+        setNote
       }}
     >
       {children}
