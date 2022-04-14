@@ -8,6 +8,7 @@ const RestaurantProvider = ({ children }) => {
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [note, setNote] = useState('');
   const { lat, long, setLat, setLong } = useUserContext();
 
   const success = useCallback(
@@ -20,10 +21,15 @@ const RestaurantProvider = ({ children }) => {
     },
     [setLat, setLong]
   );
+  const failure = () => {
+    setError('Unable to access location, please enter a zip code below.');
+  };
   useEffect(() => {
     if ('geolocation' in navigator) {
-      return navigator.geolocation.getCurrentPosition(success);
-    } 
+      return navigator.geolocation.getCurrentPosition(success, failure);
+    } else {
+      setError('Browser Does not Support Location Services, please enter your zipcode below.');
+    }
   }, [success]);
 
   useEffect(() => {
@@ -38,9 +44,8 @@ const RestaurantProvider = ({ children }) => {
         fetchData();
       } catch (e) {
         setError(e.message);
-      } 
+      }
     }
-
   }, [lat, long]);
   return (
     <RestaurantContext.Provider
@@ -55,6 +60,8 @@ const RestaurantProvider = ({ children }) => {
         setLoading,
         error,
         setError,
+        note,
+        setNote
       }}
     >
       {children}
