@@ -1,17 +1,15 @@
-import React from 'react';
+import { useState } from 'react';
 import { useUserContext } from '../../Context/UserContext';
 import { fetchProfileData, updateProfileData, insertProfileData } from '../../services/user';
 import './Profile.css';
 
 export default function Profile() {
-  const { currentUser } = useUserContext();
-  const bio = '';
-  const favorite_food = '';
-
+  const { currentUser, profilePic, setProfilePic, bio, setBio, food, setFood, username, setUserName } = useUserContext();
+  const [error, setError] = useState('');
   const saveProfile = async (e) => {
     try {
       e.preventDefault();
-      await insertProfileData({ username, bio, favorite_food, image });
+      await insertProfileData({ username, bio, food, profilePic });
       history.push('/');
     } catch (e) {
       setError(e.message);
@@ -31,11 +29,17 @@ export default function Profile() {
         />
         <h1>Greetings, {currentUser}</h1>
         <p>{bio}</p>
-        <p>Your Fave Food: {favorite_food} </p>
+        <p>Your Fave Food: {food} </p>
       </div>
       <div className="faves"></div>
 
       {/* --------------------------------------------------------- */}
+      {error && (
+        <p>
+          {error}{' '}
+          <span onClick={() => setError('')}> --- Something went wrong when creating your profile!!!</span>
+        </p>
+      )}
 
       <div>Edit Profile</div>
       <div className="edit-profile">
@@ -43,7 +47,7 @@ export default function Profile() {
           <form>
             <label>
               Name:
-              <input type="text" value={username} onChange={(e) => setUserame(e.target.value)} />
+              <input type="text" value={username} onChange={(e) => setUserName(e.target.value)} />
             </label>
             <label>
               Bio
@@ -51,11 +55,11 @@ export default function Profile() {
             </label>
             <label>
               Food
-              <input type="text" value={fav_food} onChange={(e) => setFood(e.target.value)} />
+              <input type="text" value={food} onChange={(e) => setFood(e.target.value)} />
             </label>
             <label>
               Image
-              <input type="text" value={image} onChange={(e) => setImage(e.target.value)} />
+              <input type="text" value={profilePic} onChange={(e) => setProfilePic(e.target.value)} />
             </label>
             <button onClick={saveProfile}>Save Profile</button>
           </form>

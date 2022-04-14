@@ -26,9 +26,9 @@ export async function logout() {
 //----------------- profile ----------------------
 
 export async function fetchProfileData() {
-  const { user } = await client.from('profiles').select('*');
+  const resp = await client.from('profiles').select('*');
 
-  return checkError(user);
+  return checkError(resp);
 }
 
 export async function insertProfileData(profile_picture, username, bio, favorite_food) {
