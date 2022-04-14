@@ -12,8 +12,7 @@ export default function RestaurantDetail() {
   const { restaurants, error, setError, note } = useRestaurantContext();
 
   const [success, setSuccess] = useState(false);
-  
-  
+
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -22,7 +21,7 @@ export default function RestaurantDetail() {
   useEffect(() => {
     const fetchData = () => {
       try {
-        const restaurantObject = restaurants.find(item => item.alias === alias);
+        const restaurantObject = restaurants.find((item) => item.alias === alias);
         setRestaurant(restaurantObject);
         setLoading(false);
       } catch (e) {
@@ -36,16 +35,22 @@ export default function RestaurantDetail() {
   const clickHandler = async () => {
     const user = getUserId();
     !restaurant.checked ? await createFavorite(alias, user) : await deleteFavorite(alias, user);
-    setRestaurant((prev) => {return { ...prev, checked: !prev.checked };});
-    
+    setRestaurant((prev) => {
+      return { ...prev, checked: !prev.checked };
+    });
   };
 
   return (
-    <div>
+    <div className="container">
       {error && <p>{error}</p>}
-      <h3 className="title">{restaurant.name}</h3>
-      <div className="restaurant-image" style={{ backgroundImage: `url(${restaurant.image_url})` }}></div>
-      <p className="price">{restaurant.price}</p>
+      <div className="title-group">
+        <h3 className="title-detail">{restaurant.name}</h3>
+        <p className="price">{restaurant.price}</p>
+      </div>
+      <div
+        className="restaurant-image-detail"
+        style={{ backgroundImage: `url(${restaurant.image_url})` }}
+      ></div>
       <p className="stars">{Array(Math.floor(restaurant.rating)).fill('⭐️')}</p>
       <p>{restaurant.location.address1}</p>
       <p>{restaurant.display_phone}</p>
@@ -57,7 +62,7 @@ export default function RestaurantDetail() {
       <Notes
         {...{
           setSuccess,
-          alias
+          alias,
         }}
       />
     </div>
