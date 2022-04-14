@@ -15,21 +15,23 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavHeader />
-      <div className="App">
-        <Route exact path={'/'}>
-          <Home />
-        </Route>
-        <Route exact path={'/restaurants/:alias'}>
-          <RestaurantDetail />
-        </Route>
-        <Route path={'/auth'}>
-          <Auth />
-        </Route>
-        <Route path={'/profile'}>{currentUser ? <Profile /> : <Redirect to={'/auth'} />}</Route>
-        <Route exact path={'/aboutme'}>
-          <AboutMe />
-        </Route>
+      <div className="parallax">
+        <NavHeader />
+        <div className="App">
+          <Route exact path={'/'}>
+            <Home />
+          </Route>
+          <Route exact path={'/restaurants/:alias'}>
+            <RestaurantDetail />
+          </Route>
+          <Route path={'/auth'}>
+            <Auth />
+          </Route>
+          <Route path={'/profile'}>{currentUser ? <Profile /> : <Redirect to={'/auth'} />}</Route>
+          <Route exact path={'/aboutme'}>
+            <AboutMe />
+          </Route>
+        </div>
       </div>
     </BrowserRouter>
   );

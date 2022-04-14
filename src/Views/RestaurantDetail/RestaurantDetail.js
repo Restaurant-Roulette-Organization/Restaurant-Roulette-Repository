@@ -41,7 +41,7 @@ export default function RestaurantDetail() {
   };
 
   return (
-    <div>
+    <div className="card">
       {error && <p>{error}</p>}
       <h3 className="title">{restaurant.name}</h3>
       <div
@@ -52,11 +52,13 @@ export default function RestaurantDetail() {
       <p className="stars">{Array(Math.floor(restaurant.rating)).fill('⭐️')}</p>
       <p>{restaurant.location.address1}</p>
       <p>{restaurant.display_phone}</p>
-      {currentUser && (
-        <div className="favorite" onClick={() => clickHandler()}>
-          {restaurant.checked ? '❤️' : '🤍'}
-        </div>
-      )}
+      <div className="card-info">
+        {currentUser && (
+          <div className="favorite" onClick={() => clickHandler()}>
+            {restaurant.checked ? '❤️' : '🤍'}
+          </div>
+        )}
+      </div>
       {success && <h3>Note successfully added!</h3>}
 
       {!notes ? (

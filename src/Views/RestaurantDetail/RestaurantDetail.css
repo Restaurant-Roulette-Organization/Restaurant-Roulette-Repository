@@ -1,10 +1,33 @@
-
 .restaurant-image {
-    width: 300px;
-    height: 250px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 0 auto;
-    border-radius: 4px;
-  }
+  width: 300px;
+  height: 250px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 auto;
+  border: 2px solid black;
+}
+.card {
+  margin: 20px;
+  padding: 30px;
+  /* background-color: var(--color2); */
+  background: rgb(250, 192, 94);
+  background: linear-gradient(180deg, rgba(250, 192, 94, 1) 35%, white 100%);
+  border: 2px solid var(--color3);
+}
+/* .stars {
+}
+.favorites {
+} */
+.card-info {
+  display: flex;
+  flex-direction: row;
+}
+.filter-comp {
+  border: 2px solid var(--color3);
+  background: linear-gradient(180deg, rgba(250, 192, 94, 1) 35%, white 100%);
+  width: 12rem;
+}
+.filter-control {
+  justify-content: center;
+}

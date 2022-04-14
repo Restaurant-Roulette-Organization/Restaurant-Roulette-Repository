@@ -22,18 +22,18 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias, chec
   return (
     <div className="card">
       <Link to={`/restaurants/${alias}`}>
-        <div className="restaurant-image" style={{ backgroundImage: `url(${image_url})` }}></div>
         <h3 className="title">{name}</h3>
+        <div className="restaurant-image" style={{ backgroundImage: `url(${image_url})` }}></div>
       </Link>
       <div className="bottom">
         <div className="left">
-          <p className="price">{price}</p>
+          <p className="price">{price} </p>
           <p className="stars">{Array(Math.floor(rating)).fill('⭐️')}</p>
-        </div>
-        <div className="right">
-          { currentUser && <div className="favorite" onClick={() => clickHandler()}>
-            { checked ? '❤️' : '🤍'}
-          </div>}
+          {currentUser && (
+            <div className="favorite" onClick={() => clickHandler()}>
+              {checked ? '❤️' : '🤍'}
+            </div>
+          )}
         </div>
       </div>
     </div>
