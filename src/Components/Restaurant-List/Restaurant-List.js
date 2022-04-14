@@ -8,7 +8,7 @@ import { useUserContext } from '../../Context/UserContext';
 import Notes from '../Notes/Notes';
 
 export const RestaurantListItem = ({ name, rating, price, image_url, alias, checked }) => {
-  const { setRestaurants } = useRestaurantContext();
+  const { setRestaurants, loading } = useRestaurantContext();
   const { currentUser } = useUserContext();
 
   const clickHandler = async () => {
@@ -19,6 +19,7 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias, chec
     !checked ? await createFavorite(alias, user) : await deleteFavorite(alias, user);
     // const data = await fetchRestaurants('', lat, long);
   };
+
   return (
     <div className="card">
       <Link to={`/restaurants/${alias}`}>

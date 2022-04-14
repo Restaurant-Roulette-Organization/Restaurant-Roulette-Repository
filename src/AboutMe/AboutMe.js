@@ -17,8 +17,7 @@ export default function AboutMe() {
         <h2 className="name">Andy</h2>
         <img src={`${process.env.PUBLIC_URL}/images/andy.jpeg`} />
         <p>
-          My name is Andy Mascaro. I have three kids and enjoy going to the beach with them. I am
-          old. I am currently a software engineer in training.
+          My name is Andy Mascaro. I have three kids and enjoy going to the beach with them. I am currently a software engineer in training.
         </p>
       </section>
       <section className="about-me">
