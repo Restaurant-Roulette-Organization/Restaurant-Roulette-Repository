@@ -14,11 +14,6 @@ export default function RestaurantDetail() {
   const { restaurants, error, setError, note } = useRestaurantContext();
 
   const [success, setSuccess] = useState(false);
-<<<<<<< HEAD
-=======
-  const { restaurants, error, setError } = useRestaurantContext();
-  const { currentUser } = useUserContext();
->>>>>>> d31f39aaa681c4ccc1cfe790db1c83fd00290f9c
 
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -63,29 +58,14 @@ export default function RestaurantDetail() {
         style={{ backgroundImage: `url(${restaurant.image_url})` }}
       ></div>
       <h3 className="title">{restaurant.name}</h3>
-      <div
-        className="restaurant-image"
-        style={{ backgroundImage: `url(${restaurant.image_url})` }}
-      ></div>
-      <p className="price">{restaurant.price}</p>
       <p className="stars">{Array(Math.floor(restaurant.rating)).fill('⭐️')}</p>
       <p>{restaurant.location.address1}</p>
       <p>{restaurant.display_phone}</p>
-      {currentUser && (
-        <div className="favorite" onClick={() => clickHandler()}>
-          {restaurant.checked ? '❤️' : '🤍'}
-        </div>
-      )}
       {/* <div>{notes}</div> */}
       <div className="favorite" onClick={() => clickHandler()}>
         {restaurant.checked ? '❤️' : '🤍'}
       </div>
       {success && <h3>Note successfully added!</h3>}
-      {/* <p>enter correct state to display note</p> */}
-        {...{
-          setSuccess,
-          alias,
-        }}
       <p>{notes.note}</p>
       {!notes && (
         <Notes
@@ -95,7 +75,12 @@ export default function RestaurantDetail() {
           }}
         />
       )}
-      <Notes />
+      <Notes
+        {...{
+          setSuccess,
+          alias,
+        }}
+      />
     </div>
   );
 }
