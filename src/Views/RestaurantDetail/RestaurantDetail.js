@@ -6,6 +6,8 @@ import { getUserId } from '../../services/user';
 import { createFavorite, deleteFavorite } from '../../services/favorites';
 import { useUserContext } from '../../Context/UserContext';
 
+
+
 export default function RestaurantDetail() {
   const { restaurants, error, setError } = useRestaurantContext();
   const { currentUser } = useUserContext();
@@ -51,12 +53,19 @@ export default function RestaurantDetail() {
       <p className="stars">{Array(Math.floor(restaurant.rating)).fill('⭐️')}</p>
       <p>{restaurant.location.address1}</p>
       <p>{restaurant.display_phone}</p>
+<<<<<<< HEAD
       {currentUser && (
         <div className="favorite" onClick={() => clickHandler()}>
           {restaurant.checked ? '❤️' : '🤍'}
         </div>
       )}
       {/* <div>{notes}</div> */}
+=======
+      <div className="favorite" onClick={() => clickHandler()}>
+        {restaurant.checked ? '❤️' : '🤍'}
+      </div>
+      <Notes />
+>>>>>>> aafb3bd4b5f92367528d8c50a93ebfcdd1707aa5
     </div>
   );
 }
