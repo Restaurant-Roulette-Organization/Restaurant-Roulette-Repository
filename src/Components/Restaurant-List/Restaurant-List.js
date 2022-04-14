@@ -31,11 +31,14 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias, chec
           <p className="stars">{Array(Math.floor(rating)).fill('⭐️')}</p>
         </div>
         <div className="right">
-          { currentUser && <div className="favorite" onClick={() => clickHandler()}>
-            { checked ? '❤️' : '🤍'}
-          </div>}
+          {currentUser && (
+            <div className="favorite" onClick={() => clickHandler()}>
+              {checked ? '❤️' : '🤍'}
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
+//
