@@ -4,14 +4,14 @@ import './RestaurantDetail.css';
 import { useRestaurantContext } from '../../Context/RestaurantContext';
 import { getUserId } from '../../services/user';
 import { createFavorite, deleteFavorite } from '../../services/favorites';
-import Notes from '../../Components/Notes/Notes';
+import { useUserContext } from '../../Context/UserContext';
 
 
 
 export default function RestaurantDetail() {
   const { restaurants, error, setError } = useRestaurantContext();
-  
-  
+  const { currentUser } = useUserContext();
+
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -20,7 +20,7 @@ export default function RestaurantDetail() {
   useEffect(() => {
     const fetchData = () => {
       try {
-        const restaurantObject = restaurants.find(item => item.alias === params.alias);
+        const restaurantObject = restaurants.find((item) => item.alias === params.alias);
         setRestaurant(restaurantObject);
         setLoading(false);
       } catch (e) {
@@ -33,24 +33,39 @@ export default function RestaurantDetail() {
 
   const clickHandler = async () => {
     const user = getUserId();
-    !restaurant.checked ? await createFavorite(params.alias, user) : await deleteFavorite(params.alias, user);
-    setRestaurant((prev) => {return { ...prev, checked: !prev.checked };});
-    
+    !restaurant.checked
+      ? await createFavorite(params.alias, user)
+      : await deleteFavorite(params.alias, user);
+    setRestaurant((prev) => {
+      return { ...prev, checked: !prev.checked };
+    });
   };
 
   return (
     <div>
       {error && <p>{error}</p>}
       <h3 className="title">{restaurant.name}</h3>
-      <div className="restaurant-image" style={{ backgroundImage: `url(${restaurant.image_url})` }}></div>
+      <div
+        className="restaurant-image"
+        style={{ backgroundImage: `url(${restaurant.image_url})` }}
+      ></div>
       <p className="price">{restaurant.price}</p>
       <p className="stars">{Array(Math.floor(restaurant.rating)).fill('⭐️')}</p>
       <p>{restaurant.location.address1}</p>
       <p>{restaurant.display_phone}</p>
+<<<<<<< HEAD
+      {currentUser && (
+        <div className="favorite" onClick={() => clickHandler()}>
+          {restaurant.checked ? '❤️' : '🤍'}
+        </div>
+      )}
+      {/* <div>{notes}</div> */}
+=======
       <div className="favorite" onClick={() => clickHandler()}>
         {restaurant.checked ? '❤️' : '🤍'}
       </div>
       <Notes />
+>>>>>>> aafb3bd4b5f92367528d8c50a93ebfcdd1707aa5
     </div>
   );
 }
