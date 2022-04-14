@@ -37,7 +37,7 @@ export default function RestaurantDetail() {
     };
     fetchData();
   }, [alias, setError, setLoading, setRestaurant, restaurants]);
-  if (loading || !restaurant) return <Loader/>;
+  if (loading || !restaurant) return <Loader />;
 
   const clickHandler = async () => {
     const user = getUserId();

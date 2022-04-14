@@ -27,13 +27,12 @@ export async function logout() {
 
 export async function fetchProfileData() {
   const resp = await client.from('profiles').select('*');
-
+  console.log(resp);
   return checkError(resp);
 }
 
 export async function insertProfileData(userName, id) {
   const user = await client.from('profiles').insert({ userName, id });
-  console.log(user, 'supabase user');
 
   return checkError(user);
 }

@@ -3,35 +3,36 @@ import { useState } from 'react';
 import { getUser, insertProfileData, signInUser, signUpUser } from '../../services/user';
 import { useUserContext } from '../../Context/UserContext';
 import { useHistory } from 'react-router-dom';
-import { useRestaurantContext } from '../../Context/RestaurantContext';
-import { fetchRestaurants } from '../../services/yelp';
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [type, setType] = useState('signin');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { setCurrentUser, lat, long, userName, setUserName } = useUserContext();
-  const { setRestaurants } = useRestaurantContext();
+  const { setCurrentUser, userName, setUserName, setProfile } = useUserContext();
 
   const history = useHistory();
 
   const handleSignup = async () => {
     const user = await signUpUser(email, password);
-    console.log(user, 'user');
-    await insertProfileData(userName, user.id);
+    const profileData = await insertProfileData(userName, user.id);
+    setProfile(profileData);
+    setUserName('');
   };
 
-  // {signUpUser(email, password) insertProfileData(userName)}
+  const handleSignIn = async () => {
+    const user = await signInUser(email, password);
+    console.log('user', user);
+    setProfile(user);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     if (!email || !password) return;
     try {
-      type === 'signin' ? await signInUser(email, password) : await handleSignup();
+      type === 'signin' ? await handleSignIn() : await handleSignup();
       setCurrentUser(getUser());
-      setRestaurants(await fetchRestaurants('', lat, long));
       history.push('/');
     } catch (e) {
       e.message ? setErrorMessage(e.message) : setErrorMessage('Unable to sign in. Try again');

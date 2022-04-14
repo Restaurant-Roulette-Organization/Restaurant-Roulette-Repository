@@ -19,7 +19,6 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias, chec
     !checked ? await createFavorite(alias, user) : await deleteFavorite(alias, user);
     // const data = await fetchRestaurants('', lat, long);
   };
-
   return (
     <div className="card">
       <Link to={`/restaurants/${alias}`}>
@@ -40,3 +39,4 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias, chec
     </div>
   );
 };
+//

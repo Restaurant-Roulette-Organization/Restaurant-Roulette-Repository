@@ -1,15 +1,27 @@
 import { createContext, useContext, useState } from 'react';
-import { getUser } from '../services/user';
+import { useEffect } from 'react';
+import { fetchProfileData, getUser } from '../services/user';
 
 const UserContext = createContext();
 const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(getUser());
+  const [profile, setProfile] = useState({});
+
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
-  const [profilePic, setProfilePic] = useState();
-  const [bio, setBio] = useState();
-  const [food, setFood] = useState();
+  // const [profilePic, setProfilePic] = useState();
+  // const [bio, setBio] = useState();
+  // const [food, setFood] = useState();
   const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const user = await fetchProfileData();
+      const [prof] = user;
+      user && setProfile(prof);
+    };
+    getUserData();
+  }, []);
 
   return (
     <UserContext.Provider
@@ -20,14 +32,16 @@ const UserProvider = ({ children }) => {
         setLong,
         lat,
         setLat,
-        profilePic,
-        setProfilePic,
-        bio,
-        setBio,
-        food,
-        setFood,
+        // profilePic,
+        // setProfilePic,
+        // bio,
+        // setBio,
+        // food,
+        // setFood,
         userName,
         setUserName,
+        setProfile,
+        profile,
       }}
     >
       {children}
