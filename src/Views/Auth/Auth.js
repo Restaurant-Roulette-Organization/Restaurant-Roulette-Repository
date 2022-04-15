@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { getUser, insertProfileData, signInUser, signUpUser } from '../../services/user';
 import { useUserContext } from '../../Context/UserContext';
 import { useHistory } from 'react-router-dom';
+import './Auth.css';
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +23,6 @@ export default function Auth() {
 
   const handleSignIn = async () => {
     const user = await signInUser(email, password);
-    console.log('user', user);
     setProfile(user);
   };
 
@@ -41,11 +41,11 @@ export default function Auth() {
 
   return (
     <div className="auth">
-      <span className={type === 'signin' ? 'active' : ''} onClick={() => setType('signin')}>
-        [Sign In]
+      <span className={`${type === 'signin' ? 'active' : ''}, signin`} onClick={() => setType('signin')}>
+        [Sign In]          
       </span>
       <span className={type === 'signup' ? 'active' : ''} onClick={() => setType('signup')}>
-        [Sign Up]
+        [Sign Up]    
       </span>
       <div className="error-message">{errorMessage}</div>
       <form className="auth-form" onSubmit={handleSubmit}>

@@ -17,9 +17,9 @@ export default function Home() {
   return (
     <div className="filter-control">
       <div className="filter-comp">
-        <div className="spin" onClick={() => setSelected(randomIndex(restaurants))}>
-          Restaurant Roulette
-        </div>
+        <button className="spin" onClick={() => setSelected(randomIndex(restaurants))}>
+           Restaurant Roulette
+        </button>
         <p> </p>
         <img onClick={() => setIsFiltering(!isFiltering)} src={filter} alt="filter" />
         <p>Results: {restaurants.length}</p>

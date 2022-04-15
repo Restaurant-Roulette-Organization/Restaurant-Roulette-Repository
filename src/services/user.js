@@ -27,7 +27,7 @@ export async function logout() {
 
 export async function fetchProfileData() {
   const resp = await client.from('profiles').select('*');
-  console.log(resp);
+  
   return checkError(resp);
 }
 

@@ -23,7 +23,7 @@ export default function Profile() {
   return (
     <div>
       <div className="upper">
-        <div className="settings-icon">set things</div>
+        <div className="settings-icon"></div>
         <div
           className="pfp"
           style={{

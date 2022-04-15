@@ -4,7 +4,6 @@ import { getUserId } from './user';
 export async function fetchNote(alias) {
   const resp = await client.from('notes').select().match({ alias });
 
-  console.log('notes are here', resp);
   return checkError(resp);
 }
 

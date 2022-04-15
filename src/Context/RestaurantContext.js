@@ -23,7 +23,6 @@ const RestaurantProvider = ({ children }) => {
   );
   const failure = async () => {
     const data = await fetchRestaurantZip();
-    console.log(data);
     setRestaurants(data);
     setError('Unable to access location, please enter a zip code above.');
   };
