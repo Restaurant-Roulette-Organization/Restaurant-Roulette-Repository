@@ -1,6 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
-import { getUser, insertProfileData, signInUser, signUpUser } from '../../services/user';
+import {
+  fetchProfileData,
+  getUser,
+  insertProfileData,
+  signInUser,
+  signUpUser,
+} from '../../services/user';
 import { useUserContext } from '../../Context/UserContext';
 import { useHistory } from 'react-router-dom';
 export default function Auth() {
@@ -21,8 +27,9 @@ export default function Auth() {
   };
 
   const handleSignIn = async () => {
-    const user = await signInUser(email, password);
-    setProfile(user[0]);
+    await signInUser(email, password);
+    const profileData = await fetchProfileData();
+    setProfile(profileData[0]);
   };
 
   const handleSubmit = async (e) => {
