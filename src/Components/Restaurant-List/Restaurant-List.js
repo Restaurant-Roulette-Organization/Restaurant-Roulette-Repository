@@ -36,3 +36,4 @@ export const RestaurantListItem = ({ name, rating, price, image_url, alias, chec
     </div>
   );
 };
+//
