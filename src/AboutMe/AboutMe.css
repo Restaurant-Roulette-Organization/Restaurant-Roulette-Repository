@@ -1,13 +1,14 @@
+.title-aboutus {
+  background: linear-gradient(180deg, rgba(250, 192, 94, 1) 35%, white 100%);
+}
+
 .about-me {
   margin: 5px;
   padding: 5px;
   border: 2px solid rgba(56, 44, 44, 0.842);
-
-  background-color: rgba(255, 255, 255, 0.4);
+  background: linear-gradient(180deg, rgba(250, 192, 94, 1) 35%, white 100%);
   border-radius: 5px;
-  /* color: rgb(2, 57, 50);  */
   color: var(--color2);
-  /* color: white;  */
   min-width: 200px;
   margin-top: 5px;
   display: flex;
@@ -23,4 +24,10 @@
 }
 .creators-page {
   color: #ff4a1c;
+}
+
+.img-aboutus {
+  width: 400px;
+  height: auto;
+  margin: 0 auto;
 }

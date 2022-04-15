@@ -10,7 +10,7 @@ import { useUserContext } from '../../Context/UserContext';
 import Loader from '../../Components/Loader/Loader';
 
 export default function RestaurantDetail() {
-  const { restaurants, error, setError } = useRestaurantContext();
+  const { restaurants, setError } = useRestaurantContext();
   const { currentUser } = useUserContext();
   const [success, setSuccess] = useState(false);
   const [restaurant, setRestaurant] = useState(null);
@@ -49,7 +49,6 @@ export default function RestaurantDetail() {
 
   return (
     <div className="card">
-      {error && <p>{error}</p>}
       <h3 className="title">{restaurant.name}</h3>
       <div
         className="restaurant-image"
@@ -77,7 +76,7 @@ export default function RestaurantDetail() {
           }}
         />
       ) : (
-        <p>{notes.note}</p>
+        <p className="note">{notes.note}</p>
       )}
     </div>
   );

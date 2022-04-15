@@ -10,7 +10,7 @@ export const getFavorites = async () => {
   const data = await client.from('favorites').select();
   return checkError(data);
 };
-export async function fetchFavorites(restaurant_alias) {
+export async function fetchFavorites() {
   const resp = await client.from('favorites').select('restaurant_alias');
 
   return checkError(resp);

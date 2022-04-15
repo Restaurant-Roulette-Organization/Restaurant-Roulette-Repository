@@ -15,4 +15,3 @@ export async function updateNote() {
   const resp = await client.from('notes').update();
   return checkError(resp);
 }
-// create an updateNote function

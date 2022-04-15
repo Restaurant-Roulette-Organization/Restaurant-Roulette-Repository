@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useUserContext } from '../../Context/UserContext';
-import { fetchProfileData, updateProfileData, insertProfileData } from '../../services/user';
+import { updateProfileData } from '../../services/user';
 import './Profile.css';
 
 export default function Profile() {
@@ -24,7 +23,10 @@ export default function Profile() {
   return (
     <div>
       <div className="upper">
-        <div className="settings-icon"></div>
+        <div className="edit-button" onClick={() => setIsEditing((prev) => !prev)}>
+          ✏️
+        </div>
+
         <div
           className="pfp"
           style={{
@@ -47,9 +49,8 @@ export default function Profile() {
         </p>
       )}
 
-      <div onClick={() => setIsEditing((prev) => !prev)}>✏️</div>
-      <div className="edit-profile">
-        {isEditing && (
+      {isEditing && (
+        <div className="edit-profile">
           <form>
             <label>
               Name:
@@ -90,8 +91,8 @@ export default function Profile() {
 
             <button onClick={saveProfile}>Save Profile</button>
           </form>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

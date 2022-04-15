@@ -16,9 +16,6 @@ const UserProvider = ({ children }) => {
 
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
-  // const [profilePic, setProfilePic] = useState();
-  // const [bio, setBio] = useState();
-  // const [food, setFood] = useState();
   const [userName, setUserName] = useState('');
 
   useEffect(() => {
@@ -38,12 +35,6 @@ const UserProvider = ({ children }) => {
         setLong,
         lat,
         setLat,
-        // profilePic,
-        // setProfilePic,
-        // bio,
-        // setBio,
-        // food,
-        // setFood,
         userName,
         setUserName,
         setProfile,
