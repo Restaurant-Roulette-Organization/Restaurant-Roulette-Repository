@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useUserContext } from '../../Context/UserContext';
 import { fetchProfileData, updateProfileData, insertProfileData } from '../../services/user';
 import './Profile.css';
@@ -14,7 +15,7 @@ export default function Profile() {
   const saveProfile = async (e) => {
     try {
       e.preventDefault();
-      history.push('/');
+      updateProfileData(userName, profile_picture, bio, favorite_food);
     } catch (e) {
       setError(e.message);
     }
