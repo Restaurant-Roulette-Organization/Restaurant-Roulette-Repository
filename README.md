@@ -3,7 +3,7 @@
 * Yovana Pelayo-- [GitHub] (https://github.com/yovana-pelayo) | [LinkedIn] (https://www.linkedin.com/in/yovana-pelayo-a4403b232/)
 * Cole Rossman--  [GitHub] (https://github.com/Cole-Rossman) [LinkedIn] (https://www.linkedin.com/in/cole-rossman-b25202157)
 * Jace Keyes-- [GitHub] (https://github.com/JaceGK1999) | [LinkedIn] (https://www.linkedin.com/in/jace-keyes-83190322b/)
-* Denver Michaels-- [GitHub] (https://github.com/denvermccarthy) | [LinkedIn] (https://www.linkedin.com/in/yovana-pelayo-a4403b232/)
+* Denver Michaels-- [GitHub] (https://github.com/denvermccarthy) | [LinkedIn] (https://www.linkedin.com/in/denvermccarthy/)
 * Andy Mascaro-- [GitHub] (https://github.com/Andy-Mascaro) | [LinkedIn] (https://www.linkedin.com/in/andy-mascaro/)
 
 # What is Returaunt Roulette? 
