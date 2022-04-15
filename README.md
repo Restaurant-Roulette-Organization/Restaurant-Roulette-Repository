@@ -21,9 +21,9 @@ Need a place to eat but can't decide on where to go? Use Retaurant Roulette, Jus
 
 
 
-# Deployed Site:
+# Deployed Site: https://restaurantroulette.netlify.app/
 
-Netlify https://6259924fd8fdc100085916f6--imaginative-rabanadas-6ea6b7.netlify.app/
+Netlify 
 
 # Our Plan:
 
