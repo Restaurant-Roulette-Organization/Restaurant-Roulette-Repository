@@ -16,14 +16,13 @@ export default function Auth() {
   const handleSignup = async () => {
     const user = await signUpUser(email, password);
     const profileData = await insertProfileData(userName, user.id);
-    setProfile(profileData);
+    setProfile(profileData[0]);
     setUserName('');
   };
 
   const handleSignIn = async () => {
     const user = await signInUser(email, password);
-    console.log('user', user);
-    setProfile(user);
+    setProfile(user[0]);
   };
 
   const handleSubmit = async (e) => {

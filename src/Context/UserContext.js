@@ -5,7 +5,14 @@ import { fetchProfileData, getUser } from '../services/user';
 const UserContext = createContext();
 const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(getUser());
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState({
+    id: '',
+    created_at: '',
+    profile_picture: '',
+    userName: '',
+    bio: '',
+    favorite_food: '',
+  });
 
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
@@ -17,8 +24,7 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     const getUserData = async () => {
       const user = await fetchProfileData();
-      const [prof] = user;
-      user && setProfile(prof);
+      user && setProfile(user[0]);
     };
     getUserData();
   }, []);

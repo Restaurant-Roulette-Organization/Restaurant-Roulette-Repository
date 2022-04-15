@@ -5,12 +5,9 @@ import { logout } from '../../services/user';
 import { fetchRestaurantZip } from '../../services/yelp';
 import './Header.css';
 export default function NavHeader() {
-  const {
-    currentUser,
-    setCurrentUser,
-    profile: { userName },
-  } = useUserContext();
+  const { currentUser, setCurrentUser, profile } = useUserContext();
   const { setRestaurants } = useRestaurantContext();
+  console.log(profile);
 
   const handleLogout = async () => {
     await logout();
@@ -55,7 +52,6 @@ export default function NavHeader() {
       <div>
         {currentUser && (
           <div>
-            {userName && <p>User: {userName}</p>}
             <button className="logout" onClick={handleLogout}>
               Logout
             </button>

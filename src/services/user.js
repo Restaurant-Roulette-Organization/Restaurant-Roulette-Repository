@@ -37,10 +37,11 @@ export async function insertProfileData(userName, id) {
   return checkError(user);
 }
 
-export async function updateProfileData(profile_picture, userName, bio, favorite_food) {
+export async function updateProfileData(userName, profile_picture, bio, favorite_food) {
   const user = await client
     .from('profiles')
-    .update({ profile_picture, userName, bio, favorite_food });
+    .update({ profile_picture, userName, bio, favorite_food })
+    .match({ id: getUserId() });
 
   return checkError(user);
 }
