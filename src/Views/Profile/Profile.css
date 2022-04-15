@@ -1,0 +1,23 @@
+.pfp {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background-size: contain;
+  background-position: center;
+}
+.edit-button {
+  align-self: flex-start;
+}
+
+.edit-profile {
+  margin-top: 50px;
+  background: linear-gradient(0deg, rgba(250, 192, 94, 1) 35%, white 100%);
+  padding: 40px;
+}
+
+.upper {
+  background: linear-gradient(180deg, rgba(250, 192, 94, 1) 35%, white 100%);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
