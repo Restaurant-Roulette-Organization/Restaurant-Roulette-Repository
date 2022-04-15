@@ -32,7 +32,7 @@ export default function AboutMe() {
       <section className="about-me">
         <h2 className="name">Cole</h2>
         <img className="img-aboutus" src={`${process.env.PUBLIC_URL}/images/cole.jpg`} />
-        <p>Caught a vibe.</p>
+        <p>My name is Cole Rossman, I am from Portland, OR and I am a software engineer in training. My favorite food is sushi and I love to hike.</p>
       </section>
       <section className="about-me">
         <h2 className="name">Yovana</h2>
