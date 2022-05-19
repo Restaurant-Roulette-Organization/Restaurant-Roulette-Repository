@@ -17,17 +17,18 @@ function App() {
     <BrowserRouter>
       <NavHeader />
       <div className="App">
-        <Route exact path={'/'}>
+        <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path={'/restaurants/:alias'}>
+        <Route exact path="/restaurants/:alias">
           <RestaurantDetail />
         </Route>
-        <Route path={'/auth'}>
+        <Route path="/auth">
           <Auth />
         </Route>
-        <Route path={'/profile'}>{currentUser ? <Profile /> : <Redirect to={'/auth'} />}</Route>
-        <Route exact path={'/aboutme'}>
+        <Route path="/profile">{currentUser ? <Profile /> : <Redirect to="/auth" />}</Route>
+        {/* I feel like this should be /about rather than /aboutme */}
+        <Route exact path="/aboutme">
           <AboutMe />
         </Route>
       </div>
