@@ -10,7 +10,7 @@ export async function fetchRestaurants(search = '', lat = '', long = '') {
   });
 
   const { businesses } = await resp.json();
-  const favorites = await getFavorites().map((fave) => fave.restaurant_alias);
+  const favorites = await getFavorites();
   const mutated = businesses.map((business) => {
     // we should try to avoid nested for loops just b/c
     // it can become a performance issue when the arrays get big
