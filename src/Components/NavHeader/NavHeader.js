@@ -11,6 +11,7 @@ export default function NavHeader() {
   const handleLogout = async () => {
     await logout();
     setCurrentUser(null);
+    // this causes some weirdness if you run logout from the detail page
     setRestaurants(await fetchRestaurantZip());
   };
 
